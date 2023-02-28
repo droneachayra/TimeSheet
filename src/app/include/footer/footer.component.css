@@ -1,0 +1,122 @@
+.footer{
+    background-color: black;
+    color:blanchedalmond;
+}
+.fa {
+ 
+    font-size: 30px;
+    width: 50px;
+    text-align: center;
+    text-decoration: none;
+    margin: 3px 1px;
+  }
+  
+  .fa:hover {
+      opacity: 0.7;
+  }
+  
+  .fa-facebook {
+    
+    color: white;
+  }
+  
+  .fa-twitter {
+   
+    color: white;
+  }
+  
+  .fa-google {
+   
+    color: white;
+  }
+  
+  .fa-linkedin {
+
+    color: white;
+  }
+  
+  .fa-youtube {
+    
+    color: white;
+  }
+  
+  .fa-instagram {
+   
+    color: white;
+  }
+  
+  .fa-pinterest {
+  
+    color: white;
+  }
+  
+  .fa-snapchat-ghost {
+ 
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+  }
+  
+  .fa-skype {
+   
+    color: white;
+  }
+  
+  .fa-android {
+
+    color: white;
+  }
+  
+  .fa-dribbble {
+ 
+    color: white;
+  }
+  
+  .fa-vimeo {
+   
+    color: white;
+  }
+  
+  .fa-tumblr {
+  
+    color: white;
+  }
+  
+  .fa-vine {
+
+    color: white;
+  }
+  
+  .fa-foursquare {
+ 
+    color: white;
+  }
+  
+  .fa-stumbleupon {
+  
+    color: white;
+  }
+  
+  .fa-flickr {
+
+    color: white;
+  }
+  
+  .fa-yahoo {
+ 
+    color: white;
+  }
+  
+  .fa-soundcloud {
+  
+    color: white;
+  }
+  
+  .fa-reddit {
+   
+    color: white;
+  }
+  
+  .fa-rss {
+  
+    color: white;
+  }
