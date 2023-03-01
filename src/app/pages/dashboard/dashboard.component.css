@@ -1,0 +1,36 @@
+/* .sidebar {
+    position: fixed;
+    top: 80px; 
+   
+    left: 0;
+    width: 200px;
+    background-color: #f2f2f2;
+    border-right: 1px solid #ccc;
+    overflow: auto;
+    bottom: 100px;
+  } */
+  
+  
+  /* button {
+    display: block;
+    margin-bottom: 10px;
+    padding: auto;
+    margin-left: 20px;
+    width: auto;
+  } */
+  
+  .sidebar {
+    position: fixed;
+    top: 80px;
+    bottom: 80px;
+    width: 200px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .btn {
+    display: block;
+    margin-bottom: 10px;
+  }
+  

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './include/header/header.component';
@@ -10,6 +11,9 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { MyContentComponent } from './pages/my-content/my-content.component';
+
+
 
 
 @NgModule({
@@ -21,13 +25,16 @@ import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
     RegisterComponent,
     LogoutComponent,
     DashboardComponent,
+    MyContentComponent,
+    
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule ,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

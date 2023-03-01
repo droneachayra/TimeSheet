@@ -35,6 +35,9 @@ const User = require('../models/user');
 router.post('/login', (req, res) => {
     res.json( "login" );
 });
+router.post('/dashboard',(res,req)=>{
+  res.join('dashboard');
+})
 
 //router.post('/register', (req, res) => {
 //     bcrypt.hash(req.body.password, 10, (err, hash) => {
