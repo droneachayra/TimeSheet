@@ -35,4 +35,16 @@ export class AuthService {
   project(data:any):Observable<any>{
     return this.http.post('http://localhost:8080/auth/project',data)
   }
+
+  getActivity() {
+    return this.http.get('http://localhost:8080/auth/getActivity');
+  }
+
+  getEmployees() {
+    return this.http.get('http://localhost:8080/auth/getEmployee');
+  }
+
+  getProject() {
+    return this.http.get('http://localhost:8080/auth/getProject');
+  }
 }

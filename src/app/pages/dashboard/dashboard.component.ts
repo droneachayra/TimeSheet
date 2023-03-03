@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class DashboardComponent {
+  activeButton!: string;
   activityform!: FormGroup;
   message:string='';
   isProcess:Boolean=false;
@@ -25,13 +26,15 @@ export class DashboardComponent {
   }
 
   showActivity() {
-    this.activityvis = !this.activityvis;
+    this.activeButton = 'activity';
   }
+  
   showEmployee() {
-    this.employeevis = !this.employeevis;
+    this.activeButton = 'employee';
   }
+  
   showProject() {
-    this.projectvis = !this.projectvis;
+    this.activeButton = 'project';
   }
-
+  
 }

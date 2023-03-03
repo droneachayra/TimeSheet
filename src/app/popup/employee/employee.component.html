@@ -18,6 +18,30 @@
         </form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="employee()">Save</button>
+		<button type="button" class="btn btn-outline-dark" (click)="addData()">Save</button>
 	</div>
 </ng-template>
+
+<div class="container">
+    <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Employee</button>
+    <div class="row justify-content-center mt-5">
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+						<th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data">
+                        <td>{{ item.firstname }}</td>
+                        <td>{{ item.lastname }}</td>
+						<td>{{ item.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

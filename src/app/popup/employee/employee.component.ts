@@ -16,6 +16,7 @@ export class EmployeeComponent implements OnInit {
   message:string='';
   isProcess:Boolean=false;
   className='d-none';
+  data:any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder ,private auth: AuthService,private router:Router) { 
     config.backdrop = 'static';
@@ -25,36 +26,53 @@ export class EmployeeComponent implements OnInit {
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
     })
+    this.readEmployee();
   }
 
   ngOnInit() {
     
   }
 
+  // employee(){
+  //   const data = this.EmployeeForm.value;
+  //   delete data['confirm'];
+  //   this.auth.employee(data).subscribe(res => {
+  //     if(res.success){    
+  //       this.isProcess=false;
+  //       this.message="Account has been Created! ...";
+  //       this.className="alert alert-success";
+  //       this.router.navigate(['/login']);
+  //     }else{    
+  //       this.isProcess=false;
+  //       this.message="server error..";
+  //       this.className="alert alert-danger";
+  //     }
+  //     // alert("user register succ ....");
+  //     // this.signupFrom.reset();
+  //   }, err => {
+  //     //alert('ssssddddd');
+  //     alert(err)
+  //   })
+  // }
+
+  addData(){
+    const data = this.EmployeeForm.value;
+    this.auth.employee(data).subscribe(res => {
+      if(res.success){
+      }
+    }, err => {
+      alert(err)
+    })
+  }
+
   open(content:any) {
 		this.modalService.open(content);
 	}
 
-  employee(){
-    const data = this.EmployeeForm.value;
-    delete data['confirm'];
-    this.auth.employee(data).subscribe(res => {
-      if(res.success){    
-        this.isProcess=false;
-        this.message="Account has been Created! ...";
-        this.className="alert alert-success";
-        this.router.navigate(['/login']);
-      }else{    
-        this.isProcess=false;
-        this.message="server error..";
-        this.className="alert alert-danger";
-      }
-      // alert("user register succ ....");
-      // this.signupFrom.reset();
-    }, err => {
-      //alert('ssssddddd');
-      alert(err)
-    })
-  }
+  readEmployee(){
+    this.auth.getEmployees().subscribe((data) => {
+     this.data = data;
+    })    
+  }  
 
 }

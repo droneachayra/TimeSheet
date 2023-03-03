@@ -7,6 +7,8 @@ const projectlist=new Schema({
     status:{type:String, required:true},
     starttime:{type:String, default:Date.now().valueOf(), required:true},
     endtime:{type:String, required:true}
-});
+}, {
+    collection: 'projects'
+ });
 
 module.exports=mongoose.model('Project',projectlist)

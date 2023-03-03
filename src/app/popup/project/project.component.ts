@@ -11,6 +11,7 @@ import { AuthService } from 'D:/Timesheet/src/app/service/auth.service';
 })
 export class ProjectComponent {
   ProjectForm!: FormGroup;
+  data:any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
 		// customize default values of modals used by this component tree
@@ -23,6 +24,7 @@ export class ProjectComponent {
       'starttime': ['', Validators.required],
       'endtime': ['', Validators.required]
     })
+    this.readProject();
 	}
 
   addData(){
@@ -38,4 +40,11 @@ export class ProjectComponent {
   open(content:any) {
 		this.modalService.open(content);
 	}
+
+  readProject(){
+    this.auth.getProject().subscribe((data) => {
+     this.data = data;
+    })    
+  }  
+
 }

@@ -13,10 +13,10 @@ button {
 }
    
 .rightbar {
-    position: absolute;
-    left: 200px;
-}
-
+    margin-left: 200px; /* set the margin to the width of the sidebar */
+    width: calc(100% - 200px); /* calculate the width of the right bar to take up the entire page */
+    float: left;
+  }
 .btn {
     display: block;
     margin-bottom: 10px;

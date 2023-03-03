@@ -4,13 +4,13 @@
     <button type="button" class="btn btn-primary" (click)="showProject()">Project</button>
 </div>
 <div class="rightbar">
-    <ng-container *ngIf="activityvis">
+    <ng-container *ngIf="activeButton === 'activity' || !activeButton">
         <app-activity></app-activity>
     </ng-container>
-    <ng-container *ngIf="employeevis">
+    <ng-container *ngIf="activeButton === 'employee'">
         <app-employee></app-employee>
     </ng-container>
-    <ng-container *ngIf="projectvis">
+    <ng-container *ngIf="activeButton === 'project'">
         <app-project></app-project>
     </ng-container>
-</div>    
+</div>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from 'D:/Timesheet/src/app/service/auth.service';
-import { MongogetService } from 'D:/Timesheet/src/app/service/mongoget.service';
+import { AuthService } from 'src/app/service/auth.service';
 
 @Component({
   selector: 'app-activity',
@@ -14,8 +13,9 @@ export class ActivityComponent {
 
   ActivityForm!: FormGroup;
   records!: any[];
+  data:any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService, private mongoDBService: MongogetService) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -24,7 +24,7 @@ export class ActivityComponent {
       'name': ['', Validators.required],
       'code': ['', Validators.required]
     })
-    this.getAllRecords();
+    this.readActivity();
 	}
 
   addData(){
@@ -38,13 +38,14 @@ export class ActivityComponent {
     })
   }
 
+  readActivity(){
+    this.auth.getActivity().subscribe((data) => {
+     this.data = data;
+    })    
+  }  
+
   open(content:any) {
 		this.modalService.open(content);
 	}
 
-  async getAllRecords() {
-    const collectionName = 'my-collection'; // replace with your collection name
-    this.records = await this.mongoDBService.getAllRecords("activity");
-    console.log(this.records);
-  }
 }

@@ -5,6 +5,8 @@ const activitylist=new Schema({
     id:{type:Number, unique:true, required:true},
     name:{type:String, required:true},
     code:{type:String,required:true}
-})
+}, {
+    collection: 'activities'
+ })
 
 module.exports=mongoose.model('Activity',activitylist)

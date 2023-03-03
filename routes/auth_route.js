@@ -121,4 +121,33 @@ router.post('/project', (req, res) => {
     })
 });
 
+router.route('/getEmployee').get((req, res) => {
+    Employee.find().then((result) => {
+        res.json(result);
+    })
+})
+
+router.route('/getActivity').get((req, res) => {
+    Activity.find().then((result) => {
+        res.json(result);
+    })
+})
+
+router.route('/getProject').get((req, res) => {
+    Project.find().then((result) => {
+        res.json(result);
+    })
+})
+
+router.route('/deleteActivity/:id').delete((req, res, next) => {
+    Activity.findOneAndRemove(req.params.id).then((error, data) => {
+      if (error) {
+        return next(error);
+      }else {
+        res.status(200).json({
+          msg: data
+        })
+      }
+    })
+})
 module.exports = router
