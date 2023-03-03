@@ -107,8 +107,8 @@ router.post('/project', (req, res) => {
         id: req.body.id,
         name: req.body.name,
         status: req.body.status,
-        stime: req.body.stime,
-        etime: req.body.etime,
+        starttime: req.body.starttime,
+        endtime: req.body.endtime
     }).save()
     .then((_) => {
         res.json({ success: true, message: "Project added successfully" })
