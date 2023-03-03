@@ -1,6 +1,9 @@
 const router = require("express").Router();
 
 const User = require('../models/user');
+const Activity = require('../models/activity');
+const Employee = require('../models/employee');
+const Project = require('../models/project');
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 const checkAuth =require('../middleware/check_auth');
@@ -21,7 +24,7 @@ router.post('/register', (req, res) => {
             })
             .catch((err) => {
                 if (err.code === 11000) {
-                    return res.json({ uccses: false, message: "Email is Already exist ! " })
+                    return res.json({ uccses: false, message: "Email already exists! " })
                 }
                 res.json({ success: false, message: "Authentication failed" })
             })
@@ -66,7 +69,7 @@ router.get('/logout',checkAuth,(req, res) =>{
 })
 
 router.post('/activity', (req, res) => {
-    const act = new User({
+    const act = new Activity({
         id: req.body.id,
         name: req.body.name,
         code :req.body.code,
@@ -83,7 +86,7 @@ router.post('/activity', (req, res) => {
 });
 
 router.post('/employee', (req, res) => {
-    const emp = new User({
+    const emp = new Employee({
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email :req.body.email,
@@ -95,12 +98,12 @@ router.post('/employee', (req, res) => {
         if (err.code === 11000) {
             return res.json({ success: false, message: "Employee already present" })
         }
-        res.json({ success: false, message: "Failed to add" })
+        res.json({ success: false, message: err })
     })
 });
 
 router.post('/project', (req, res) => {
-    const pro = new User({
+    const pro = new Project({
         id: req.body.id,
         name: req.body.name,
         status: req.body.status,
@@ -108,13 +111,13 @@ router.post('/project', (req, res) => {
         etime: req.body.etime,
     }).save()
     .then((_) => {
-        res.json({ success: true, message: "Activity added successfully" })
+        res.json({ success: true, message: "Project added successfully" })
     })
     .catch((err) => {
         if (err.code === 11000) {
-            return res.json({ success: false, message: "Activity already present" })
+            return res.json({ success: false, message: "Project already present" })
         }
-        res.json({ success: false, message: "Failed to add" })
+        res.json({ success: false, message: err })
     })
 });
 
