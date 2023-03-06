@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivityComponent } from './popup/activity/activity.component';
+import { EmployeeComponent } from './popup/employee/employee.component';
+import { ProjectComponent } from './popup/project/project.component';
 
 @Component({
   selector: 'app-root',
@@ -6,14 +9,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
- 
-  activityData: string[] = [];
-
-  updateActivityInfo(activity: string) {
-    this.activityData.push(activity);
-
-  }
+  title = 'TimesheetTest';
 }

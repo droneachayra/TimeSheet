@@ -1,7 +1,16 @@
 <div class="sidebar">
-    <button styltype="button" class="btn btn-primary btn-lg" (click)="showContent()">Activity </button>
-    
-    <button type="button" class="btn btn-primary btn-lg">Button</button>
-    <button type="button" class="btn btn-primary btn-lg">Button 3</button>
-  </div>
-  
+    <button type="button" class="btn btn-primary" (click)="showActivity()">Activity</button>
+    <button type="button" class="btn btn-primary" (click)="showEmployee()">Employee</button>
+    <button type="button" class="btn btn-primary" (click)="showProject()">Project</button>
+</div>
+<div class="rightbar">
+    <ng-container *ngIf="activeButton === 'activity' || !activeButton">
+        <app-activity></app-activity>
+    </ng-container>
+    <ng-container *ngIf="activeButton === 'employee'">
+        <app-employee></app-employee>
+    </ng-container>
+    <ng-container *ngIf="activeButton === 'project'">
+        <app-project></app-project>
+    </ng-container>
+</div>

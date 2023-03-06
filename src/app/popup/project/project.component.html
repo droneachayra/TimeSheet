@@ -1,0 +1,72 @@
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="ProjectForm">
+            <div class="mb-3">
+                <label for="id-input" class="form-label">ID:</label>
+                <input type="text" class="form-control" id="id-input" formControlName="id">
+            </div>
+            <div class="mb-3">
+                <label for="name-input" class="form-label">Name:</label>
+                <input type="text" class="form-control" id="name-input" formControlName="name">
+            </div>
+            <div class="mb-3">
+                <label for="status-input" class="form-label">Status:</label>
+                <select class="form-control" id="status-input" formControlName="status">
+                    <option value="">--Select a service type--</option>
+                    <option value="in-progress">In-progress</option>
+                    <option value="complete">Complete</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="starttime">Select start time:</label>
+                <input type="time" id="starttime" class="form-control" formControlName="starttime">
+            </div>
+            <div class="mb-3">
+                <label for="endtime">Select end time:</label>
+                <input type="time" id="endtime" class="form-control" formControlName="endtime">
+            </div>
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="addData()">Save</button>
+	</div>
+</ng-template>
+
+<div class="container">
+    <!-- <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add New Project</button> -->
+    <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Project</button>
+    <div class="row justify-content-center mt-5">
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+						<th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Functionality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+						<td>{{ item.status }}</td>
+                        <td>{{ item.starttime }}</td>
+                        <td>{{ item.endtime }}</td>
+                        <td class="actions">
+                            <button class="btn btn-sm btn-primary btn-edit">Edit</button>
+                            <button class="btn btn-sm btn-danger btn-action">Delete</button>
+                          </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

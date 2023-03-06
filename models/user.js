@@ -1,7 +1,6 @@
 const mongoose =require('mongoose');
+const Schema = mongoose.Schema;
 
-
-const Schema=mongoose.Schema;
 
 const userSchema=new Schema({
     displayName:{type:String},
@@ -11,4 +10,7 @@ const userSchema=new Schema({
     updated_at:{type:Number,default:Date.now().valueOf()}
 })
 
-module.exports=mongoose.model('user',userSchema)
+module.exports=mongoose.model('User',userSchema)
+// module.exports=mongoose.model('Activity',activitylist)
+// module.exports=mongoose.model('Employee',employeelist)
+// module.exports=mongoose.model('Project',projectlist)

@@ -1,0 +1,52 @@
+<ng-template #content let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Add Employee Details</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="EmployeeForm" class ="text-left" action="">
+            <div class="form-group"><br/>
+                <label>id</label>
+                <input type="text" class="form-control" placeholder="First Name" formControlName="firstname">
+
+                <label>name</label>
+                <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname">
+
+                <label>code </label>
+                <input type="text" class="form-control" placeholder="Email" formControlName="email">
+            </div><br>
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="addData()">Save</button>
+	</div>
+</ng-template>
+
+<div class="container">
+    <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Employee</button>
+    <div class="row justify-content-center mt-5">
+        <div class="col-10">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+						<th>Email</th>
+                        <th>Functionality</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of data">
+                        <td>{{ item.firstname }}</td>
+                        <td>{{ item.lastname }}</td>
+						<td>{{ item.email }}</td>
+                        <td class="actions">
+                            <button class="btn btn-sm btn-primary btn-edit">Edit</button>
+                            <button class="btn btn-sm btn-danger btn-action">Delete</button>
+                          </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

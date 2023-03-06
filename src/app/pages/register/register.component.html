@@ -4,13 +4,13 @@
         <div class="col-md-7">
             <div class="card shadow-lg p-5 mb-5 mt-5">
                 <h2>Welcome Here! </h2><hr>
-                <div class="alert alert-success" role="alert"><!--{{message}}--> Account has been Created!  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div [ngClass]="className" role="alert">{{message}}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <a routerLink="/login" class="text-primary" style="cursor:pointer">Login here</a>
                   </div>
                 <form [formGroup]="signupFrom" class ="text-left" action="">
                     <div class="form-group"><br/>
                         <label>Display name</label>
-                        <input type="text" name="" id="" class="form-control" placeholder="username" formControlName="displayname">
+                        <input type="text" name="" id="" class="form-control" placeholder="username" formControlName="displayName">
 
                         <label>Email name</label>
                         <input type="email" name="" id="" class="form-control" placeholder="Email Id here" formControlName="email">

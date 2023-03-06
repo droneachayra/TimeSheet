@@ -1,109 +1,188 @@
 const router = require("express").Router();
 
 const User = require('../models/user');
-//const bcrypt = require('bcrypt');
-//const jwt =require('jsonwebtoken');
-//const checkAuth =require('../middleware/check_auth');
+const Activity = require('../models/activity');
+const Employee = require('../models/employee');
+const Project = require('../models/project');
+const bcrypt = require('bcrypt');
+const jwt =require('jsonwebtoken');
+const checkAuth =require('../middleware/check_auth');
 
- router.post('/register', (req, res) => {
-   // res.json("register" );
-    const user = new User({
-                       // displayName:{type:String},
-                       // email:{type:String,unique:true},
-                        // password:{type:String,required:true},
-                        displayName: req.body.displayName,
-                         email: req.body.email,
-                        //password :hash,
-                        password: req.body.password,
-        
-                        // displayName:"sonal patil",
-                        // email:"sonal@droneacharya.com",
-                        // password:"1234567",
-                    })
-                    user.save()
-                                    .then((_) => {
-                                       res.json({ success: true, message: "Account has been created" })
-                                    })
-                                    .catch((err) => {
-                                                          // if (err.code === 11000) {
-                                                           //  return res.json({ uccses: false, message: "Email is Already exist ! " })
-                                                          //  }
-                                                            res.json({ succses: false, message: "Authentication failed" })
-                                                     })
+router.post('/register', (req, res) => {
+    bcrypt.hash(req.body.password, 10, (err, hash) => {
+        if (err) {
+            return res.json({ success: false, message: "Hash Error !" })
+        } else {
+            //res.json("register work")
+            const user = new User({
+                displayName: req.body.displayName,
+                email: req.body.email,
+                password :hash,
+            }).save()
+            .then((_) => {
+                res.json({ success: true, message: "Account has been created" })
+            })
+            .catch((err) => {
+                if (err.code === 11000) {
+                    return res.json({ uccses: false, message: "Email already exists! " })
+                }
+                res.json({ success: false, message: "Authentication failed" })
+            })
+        }
+    })
+
 });
 
 router.post('/login', (req, res) => {
-    res.json( "login" );
-});
-router.post('/dashboard',(res,req)=>{
-  res.join('dashboard');
+   // res.json("login work")
+   User.find({email:req.body.email}).exec().then((result)=>{
+    if(result.length<1){
+        return res.json({success:false,message:"user not fount"})
+    }
+    const user=result[0];
+    bcrypt.compare(req.body.password,user.password,(err,ret)=>{
+        if(ret){
+            const payload={
+                userId:user._id
+            } 
+           const token = jwt.sign(payload,"webBatch")
+            return res.json({success:true,message:"Login Succfull...!!",token:token})
+        }else{
+            return res.json({success:false,message:"password does not match!!"})
+        }
+    })
+   }).catch(err=>{
+    res.json({success:false,message:"Authentication failed.."})
+   })
 })
 
-//router.post('/register', (req, res) => {
-//     bcrypt.hash(req.body.password, 10, (err, hash) => {
-//         if (err) {
-//             return res.json({ succses: false, message: "Hash Error !" })
-//         } else {
-            
-//             //res.json("register work")
-//             const user = new User({
-//                 //displayName:{type:String},
-//                 //email:{type:String,unique:true},
-//                 // password:{type:String,required:true},
-//                 displayName: req.body.displayName,
-//                 email: req.body.email,
-//                 password :hash,
-//                // password: req.body.password,
+router.get('/logout',checkAuth,(req, res) =>{
+    //const userId="63e21378ccb8d70af4fba0f8";
+    const userId=req.userData.userId;
+        User.findById(userId).exec().then((result)=>{
+            res.json({success:true,data:result})
 
-//                 // displayName:"sonal patil",
-//                 // email:"sonal@droneacharya.com",
-//                 // password:"1234567",
-//             }).save()
-//                 .then((_) => {
-//                     res.json({ succses: true, message: "Account has been created" })
-//                 })
-//                 .catch((err) => {
-//                     if (err.code === 11000) {
-//                         return res.json({ uccses: false, message: "Email is Already exist ! " })
-//                     }
-//                     res.json({ succses: false, message: "Authentication failed" })
-//                 })
-//         }
-//     })
+        }).catch(err=>{
+            res.json({success:false,message:"Server error"})
+        })
+    
+})
 
-// });
-// router.post('/login', (req, res) => {
-//    // res.json("login work")
-//    User.find({email:req.body.email}).exec().then((result)=>{
-//     if(result.length<1){
-//         return res.json({succses:false,message:"user not fount"})
-//     }
-//     const user=result[0];
-//     bcrypt.compare(req.body.password,user.password,(err,ret)=>{
-//         if(ret){
-//             const payload={
-//                 userId:user._id
-//             } 
-//            const token = jwt.sign(payload,"webBatch")
-//             return res.json({succses:true,message:"Login Succful!!",token:token})
-//         }else{
-//             return res.json({succses:false,message:"password does not match!!"})
-//         }
-//     })
-//    }).catch(err=>{
-//     res.json({succses:false,message:"Authentication failed.."})
-//    })
-// })
+router.post('/activity', (req, res) => {
+    const act = new Activity({
+        id: req.body.id,
+        name: req.body.name,
+        code :req.body.code,
+    }).save()
+    .then((_) => {
+        res.json({ success: true, message: "Activity added successfully" })
+    })
+    .catch((err) => {
+        if (err.code === 11000) {
+            return res.json({ success: false, message: "Activity already present" })
+        }
+        res.json({ success: false, message: "Failed to add" })
+    })
+});
 
-// router.get('/profile',checkAuth,(req, res) =>{
-//     //const userId="63e21378ccb8d70af4fba0f8";
-//     const userId=req.userData.userId;
-//         User.findById(userId).exec().then((result)=>{
-//             res.json({succses:true,data:result})
+router.post('/employee', (req, res) => {
+    const emp = new Employee({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email :req.body.email,
+    }).save()
+    .then((_) => {
+        res.json({ success: true, message: "Employee added successfully" })
+    })
+    .catch((err) => {
+        if (err.code === 11000) {
+            return res.json({ success: false, message: "Employee already present" })
+        }
+        res.json({ success: false, message: err })
+    })
+});
 
-//         }).catch(err=>{
-//             res.json({succses:false,message:"Server error"})
+router.post('/project', (req, res) => {
+    const pro = new Project({
+        id: req.body.id,
+        name: req.body.name,
+        status: req.body.status,
+        starttime: req.body.starttime,
+        endtime: req.body.endtime
+    }).save()
+    .then((_) => {
+        res.json({ success: true, message: "Project added successfully" })
+    })
+    .catch((err) => {
+        if (err.code === 11000) {
+            return res.json({ success: false, message: "Project already present" })
+        }
+        res.json({ success: false, message: err })
+    })
+});
+
+router.route('/getEmployee').get((req, res) => {
+    Employee.find().then((result) => {
+        res.json(result);
+    })
+})
+
+router.route('/getActivity').get((req, res) => {
+    Activity.find().then((result) => {
+        res.json(result);
+    })
+})
+
+router.route('/getProject').get((req, res) => {
+    Project.find().then((result) => {
+        res.json(result);
+    })
+})
+
+
+router.route('/deleteActivity/:id').delete((req, res, next) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((error, data) => {
+      if (error) {
+        return next(error);
+      }else {
+        res.status(200).json({
+          msg: data
+        })
+      }
+    });
+    
+});
+
+router.put('editactivity/:id', (req, res) => {
+    Activity.findOneAndUpdate(
+        { id: req.params.id },
+        { $set: { name: req.body.name, code: req.body.code } },
+        { new: true }
+    ).then((result) => {
+        res.json({ success: true, message: "Activity updated successfully", data: result });
+    }).catch((err) => {
+        res.json({ success: false, message: "Failed to update", error: err });
+    });
+});
+
+
+
+module.exports = router
+
+
+
+
+
+
+// router.route('/delete/:id').delete((req, res, next) => {
+//     Activity.findByIdAndRemove(req.params.id).then((error, data) => {
+//       if (error) {
+//         return next(error);
+//       }else {
+//         res.status(200).json({
+//           msg: data
 //         })
+//       }
+//     })
     
 // })
-module.exports = router
