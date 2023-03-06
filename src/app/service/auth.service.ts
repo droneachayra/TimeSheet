@@ -69,6 +69,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  updateActivity(data: any) {
+    throw new Error('Method not implemented.');
+  }
   
   private readonly apiUrl = 'http://localhost:8080/auth/';
   modalService: any;
@@ -136,9 +139,13 @@ export class AuthService {
     return this.http.delete(url);
   }
 
-  editActivity(item: any) {
-    const url = `${this.apiUrl}delete/${item.id}`;
-    return this.http.delete(url);
+  
+  editActivity(id: any, data: any) {
+    const url = `${this.apiUrl}editactivity/${id}`;
+    return this.http.put(url, data);
   }
   
-}
+  
+  }
+  
+

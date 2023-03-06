@@ -61,10 +61,31 @@ export class ActivityComponent {
   
   }
   onEdit(id:any){
-    
+    // const item = this.data.find((d:any) => d.id === id);
+    // this.ActivityForm.setValue(item);
+    // this.modalService.open(this.content).result.then((result) => {
+    //   if (result === 'save') {
+    //     const data = this.ActivityForm.value;
+    //     this.auth.updateActivity(data).subscribe(res => {
+    //       if (res.success) {
+    //         const index = this.data.findIndex((d:any) => d.id === data.id);
+    //         if (index > -1) {
+    //           this.data[index] = data;
+    //         }
+    //       }
+    //     }, err => {
+    //       console.log(err);
+    //     });
+    //   }
+    //   this.ActivityForm.reset();
+    // }, (reason) => {
+    //   this.ActivityForm.reset();
+    // });
   }
   
-  
+  showEditor(){
+    
+  }
   
 
 }

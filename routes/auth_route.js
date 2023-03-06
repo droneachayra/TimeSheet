@@ -153,17 +153,29 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
     
 });
 
-router.put('editactivity/:id', (req, res) => {
+// router.put('editactivity/:id', (req, res) => {
+//     Activity.findOneAndUpdate(
+//         { id: req.params.id },
+//         { $set: { name: req.body.name, code: req.body.code } },
+//         { new: true }
+//     ).then((result) => {
+//         res.json({ success: true, message: "Activity updated successfully", data: result });
+//     }).catch((err) => {
+//         res.json({ success: false, message: "Failed to update", error: err });
+//     });
+// });
+router.put('/editactivity/:id', (req, res) => {
     Activity.findOneAndUpdate(
-        { id: req.params.id },
-        { $set: { name: req.body.name, code: req.body.code } },
-        { new: true }
+      { id: req.params.id },
+      { $set: { name: req.body.name, code: req.body.code } },
+      { new: true }
     ).then((result) => {
-        res.json({ success: true, message: "Activity updated successfully", data: result });
+      res.json({ success: true, message: "Activity updated successfully", data: result });
     }).catch((err) => {
-        res.json({ success: false, message: "Failed to update", error: err });
+      res.json({ success: false, message: "Failed to update", error: err });
     });
-});
+  });
+  
 
 
 
