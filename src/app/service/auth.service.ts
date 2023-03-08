@@ -135,7 +135,15 @@ export class AuthService {
 
   
   deleteActivity(data: any) {
-    const url = `${this.apiUrl}delete/${data.id}`;
+    const url = `${this.apiUrl}deleteActivity/${data}`;
+    return this.http.delete(url);
+  }
+  deleteEmployee(data: any) {
+    const url = `${this.apiUrl}deleteActivity/${data}`;
+    return this.http.delete(url);
+  }
+  deleteProject(data: any) {
+    const url = `${this.apiUrl}deleteActivity/${data}`;
     return this.http.delete(url);
   }
   editActivity(id: any, data: any) {

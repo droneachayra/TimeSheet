@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-// import { Router } from 'express';
+
 import {  Router, RouterStateSnapshot } from '@angular/router';
 
 @Component({
@@ -37,13 +37,6 @@ export class ActivityComponent {
     })
     this.readActivity();
 	}
-
-  
-   
-
-    // this.auth.(this.id).subscribe(data=>{
-    //   this.editProject.patchValue(data);
-    // })
   
 
   addData(){
@@ -53,7 +46,7 @@ export class ActivityComponent {
       if(res.success){
       }
     }, err => {
-      //alert('ssssddddd');
+      alert('ssssddddd');
       alert(err)
     })
   }
@@ -72,9 +65,15 @@ export class ActivityComponent {
 
   }
   editActivity(item: any) {
+    
     // Open the modal with the form pre-populated with the activity data
     this.modalService.open(this.content);
     this.ActivityForm.setValue(item);
+    // this.ActivityEdit.setValue({
+    //   'name': item.name,
+    //   'code': item.code
+    // });
+    
   }
  
  
@@ -99,8 +98,9 @@ export class ActivityComponent {
 
 
 onDelete(data: any) {
+  console.log(data);
   // Call the API to delete the activity data
-  this.auth.deleteActivity(data.id).subscribe(res => {
+  this.auth.deleteActivity(data).subscribe(res => {
     if (res) {
       // Remove the deleted activity from the table
       const index = this.data.indexOf(data);
@@ -116,18 +116,3 @@ onDelete(data: any) {
 }
 
 
-//main delete
-// onDelete(data: any) {
-//   // Call the API to delete the activity data
-//   this.auth.deleteActivity(data.id).subscribe(res => {
-//     if (res) {
-//       // Remove the deleted activity from the table
-//       const index = this.data.indexOf(data);
-//       if (index > -1) {
-//         this.data.splice(index, 1);
-//       }
-//     }
-//   }, err => {
-//     console.log(err);
-//   });
-// }
