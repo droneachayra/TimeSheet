@@ -20,6 +20,8 @@ import { EmployeeComponent } from './popup/employee/employee.component';
 import { ProjectComponent } from './popup/project/project.component';
 import { ActivityComponent } from './popup/activity/activity.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProjectComponentComponent } from './project-component/project-component.component';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmployeeComponent,
     ProjectComponent,
     ActivityComponent,
+    ProjectComponentComponent,
    
   ],
   imports: [
