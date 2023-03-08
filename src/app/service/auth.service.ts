@@ -134,15 +134,35 @@ export class AuthService {
   } 
 
   
-  deleteActivity(item: any) {
-    const url = `${this.apiUrl}delete/${item.id}`;
+  deleteActivity(data: any) {
+    const url = `${this.apiUrl}delete/${data.id}`;
     return this.http.delete(url);
   }
-
-  
   editActivity(id: any, data: any) {
     const url = `${this.apiUrl}editactivity/${id}`;
-    return this.http.put(url, data);
+    console.log(url)
+    return this.http.put(url, data).subscribe(response => {},
+    err => {
+      console.log(err);
+    });
+  }
+  
+  editEmployee(id: any, data: any) {
+    const url = `${this.apiUrl}editemployee/${id}`;
+    console.log(url)
+    return this.http.put(url, data).subscribe(response => {},
+    err => {
+      console.log(err);
+    });
+  }
+
+  editProject(id: any, data: any) {
+    const url = `${this.apiUrl}editproject/${id}`;
+    console.log(url)
+    return this.http.put(url, data).subscribe(response => {},
+    err => {
+      console.log(err);
+    });
   }
   
   

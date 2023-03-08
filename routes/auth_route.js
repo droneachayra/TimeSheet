@@ -140,31 +140,35 @@ router.route('/getProject').get((req, res) => {
 })
 
 
+
 router.route('/deleteActivity/:id').delete((req, res, next) => {
-    Activity.findOneAndRemove({id: req.params.id}).then((error, data) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
-      }else {
+      } else {
         res.status(200).json({
-          msg: data
-        })
+          msg: 'Activity deleted successfully',
+          data: data
+        });
       }
     });
-    
-});
+  });
+  
 
-// router.put('editactivity/:id', (req, res) => {
+
+// router.put('/editactivity/:id', (req, res) => {
 //     Activity.findOneAndUpdate(
-//         { id: req.params.id },
-//         { $set: { name: req.body.name, code: req.body.code } },
-//         { new: true }
+//       { id: req.params.id },
+//       { $set: { name: req.body.name, code: req.body.code } },
+//       { new: true }
 //     ).then((result) => {
-//         res.json({ success: true, message: "Activity updated successfully", data: result });
+//       res.json({ success: true, message: "Activity updated successfully", data: result });
 //     }).catch((err) => {
-//         res.json({ success: false, message: "Failed to update", error: err });
+//       res.json({ success: false, message: "Failed to update", error: err });
 //     });
-// });
-router.put('/editactivity/:id', (req, res) => {
+//   });
+  
+  router.route('/editactivity/:id').put((req, res) => {
     Activity.findOneAndUpdate(
       { id: req.params.id },
       { $set: { name: req.body.name, code: req.body.code } },
@@ -176,6 +180,30 @@ router.put('/editactivity/:id', (req, res) => {
     });
   });
   
+  router.route('/editemployee/:id').put((req, res) => {
+    Employee.findOneAndUpdate(
+      { id: req.params.id },
+      { $set: { firstname: req.body.firstname, lastname: req.body.lastname } },
+      { new: true }
+    ).then((result) => {
+      res.json({ success: true, message: "Employee updated successfully", data: result });
+    }).catch((err) => {
+      res.json({ success: false, message: "Failed to update", error: err });
+    });
+  });
+
+  router.route('/editproject/:id').put((req, res) => {
+    console.log("ahahahah")
+    Project.findOneAndUpdate(
+      { id: req.params.id },
+      { $set: { name: req.body.name, status: req.body.status, starttime:req.body.starttime, endtime:req.body.endtime } },
+      { new: true }
+    ).then((result) => {
+      res.json({ success: true, message: "Project updated successfully", data: result });
+    }).catch((err) => {
+      res.json({ success: false, message: "Failed to update", error: err });
+    });
+  });
 
 
 
