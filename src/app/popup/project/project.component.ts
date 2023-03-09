@@ -27,9 +27,11 @@ export class ProjectComponent {
     this.ProjectForm = this.fb.group({
       'id': ['', Validators.required],
       'name': ['', Validators.required],
+      'Procode': ['', Validators.required],
       'status': ['', Validators.required],
       'starttime': ['', Validators.required],
       'endtime': ['', Validators.required]
+
     })
     this.ProjectEdit = this.fb.group({
       'name': ['', Validators.required],
