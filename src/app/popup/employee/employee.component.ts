@@ -28,6 +28,8 @@ export class EmployeeComponent implements OnInit {
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
+      'password': ['', Validators.required],
+
     })
     this.EmployeeEdit = this.fb.group({
       'firstname': ['', Validators.required],

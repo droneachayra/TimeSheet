@@ -2,24 +2,24 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const projectcomponentSchema = new Schema({
-name: {
+taskName: {
 type: String,
 required: true
 },
-position: {
+filename: {
 type: String
 },
-office: {
+employeelist: {
 type: String
 },
-salary: {
+activity: {
 type: String
 }
 }, {
-collection: 'projects'
+collection: 'ListData'
 });
 
-module.exports = mongoose.model('Project', projectcomponentSchema);
+module.exports = mongoose.model('ListData', projectcomponentSchema);
 
 
 

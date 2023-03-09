@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const projectComponent=require('../models/project-component');
 const User = require('../models/user');
 const Activity = require('../models/activity');
 const Employee = require('../models/employee');
@@ -7,6 +7,7 @@ const Project = require('../models/project');
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 const checkAuth =require('../middleware/check_auth');
+
 
 router.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -230,6 +231,28 @@ router.route('/editactivity/:id').put((req, res) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
+  router.post('/projectComponent', (req, res) => {
+    
+    const pro = new projectComponent({
+        taskName: req.body.taskName,
+        employeelist: req.body.employeelist,
+        filename: req.body.filename,
+        activity:req.body.activity,
+      
+
+    }).save()
+    .then((_) => {
+        res.json({ success: true, message: "Project added successfully" })
+    })
+    .catch((err) => {
+      console.log(err);
+        if (err.code === 11000) {
+            return res.json({ success: false, message: "Project already present" })
+        }
+        res.json({ success: false, message: err })
+    })
+});
+
 
 module.exports = router
 

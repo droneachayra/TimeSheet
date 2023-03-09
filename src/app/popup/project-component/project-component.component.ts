@@ -3,8 +3,9 @@ import { ActivityComponent } from '../activity/activity.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { ProjectComponent } from '../project/project.component';
 import { MongoClient } from 'mongodb';
-import { NgForm } from '@angular/forms';
-
+import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-project-component',
@@ -12,21 +13,45 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./project-component.component.css']
 })
 export class ProjectComponentComponent implements OnInit {
-onSubmit(_t11: NgForm) {
-throw new Error('Method not implemented.');
-}
+  ProjectComponentForm!: FormGroup;
+
+// onSubmit(_t11: NgForm) {
+// throw new Error('Method not implemented.');
+// }
 
   item:any;
 employeeService: any;
+  data!: any;
+  
   constructor(
     private route: ActivatedRoute,
+    private auth:AuthService,
+    private fb: FormBuilder
     // private dataService: DataService
-  ) {}
+  ) {
+    
+    this.ProjectComponentForm = this.fb.group({
+      'taskName': ['', Validators.required],
+     
+      'employeelist': ['', Validators.required],
+      'filename': ['', Validators.required],
+      'activity': ['', Validators.required]
+    })
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    this.readEmployee();
     // this.item = this.dataService.getItemById(id);
   }
+  readEmployee(){
+    
+    this.auth.getEmployees().subscribe((data) => {
+     this.data = data;
+     
+    })   
+    console.log(this.data); 
+  }  
   exporttoCSV(){
     var csv_data = [];
  
@@ -57,7 +82,17 @@ employeeService: any;
   // app.get('/', function(req, res) {
   //   res.render('myComponent', { items: items });
   // });
+  appendData(){
+    const data = this.ProjectComponentForm.value;
+    this.auth.projectComponent(data).subscribe(res => {
+      if(res.success){
+      }
+    }, err => {
+      alert(err)
+    })
+  }
 }
+
 
 
 

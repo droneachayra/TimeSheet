@@ -117,6 +117,12 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     return this.http.post(url, data, { headers });
   }
+  projectComponent(data:any):Observable<any>{
+    const url = `${this.apiUrl}projectComponent`;
+    const headers = this.getAuthHeaders();
+    return this.http.post(url, data, { headers });
+  }
+
 
   getActivity() {
     const url = `${this.apiUrl}getActivity`;
@@ -174,6 +180,7 @@ export class AuthService {
       console.log(err);
     });
   }
+
   
   }
   
