@@ -5,13 +5,14 @@ import { LoginComponent } from './pages/login/login.component';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProjectComponent } from './popup/project/project.component';
+import { ProjectComponentComponent } from './popup/project-component/project-component.component';
 
 const routes: Routes = [
   {path:"login",component:LoginComponent},
   {path:"register", component:RegisterComponent},
   {path:"logout",component:LogoutComponent},
   {path:"**",component:DashboardComponent},
-  {path:'project_component/:id', component:ProjectComponent },
+  {path: "project-component/:id", component:ProjectComponentComponent}
 ];
 
 @NgModule({

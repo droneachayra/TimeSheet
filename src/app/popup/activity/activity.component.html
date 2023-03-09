@@ -23,6 +23,7 @@
 		<button type="button" class="btn btn-outline-dark" (click)="addData()">Save</button>
 	</div>
 </ng-template>
+
 <ng-template #edit let-c="close" let-d="dismiss">
 	<div class="modal-header">
 		<h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
@@ -61,20 +62,19 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of data">
-                        <td>{{ item.id }}</td>
+                        <td scope="row">{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.code }}</td>
                         <td class="actions">
                             <button class="btn btn-sm btn-primary btn-edit" (click)="openEdit(item.id ,edit)">Edit</button>
-                            <button class="btn btn-sm btn-danger btn-action" (click)="onDelete(item.id)" >Delete</button>
+                            <button class="btn btn-sm btn-danger btn-action" (click)="onDelete(data)" >Delete</button>
                           </td>
                       </tr>
-                      
                 </tbody>
             </table>
+           
             
         </div>
     </div>
 </div>
-
 

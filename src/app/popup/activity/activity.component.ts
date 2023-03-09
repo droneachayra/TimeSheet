@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
-
-import {  Router, RouterStateSnapshot } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-activity',
@@ -13,18 +12,15 @@ import {  Router, RouterStateSnapshot } from '@angular/router';
 })
 export class ActivityComponent {
 
-
-  
- 
   ActivityForm!: FormGroup;
-  ActivityEdit!:FormGroup;
+  ActivityEdit!: FormGroup;
   records!: any[];
   data:any;
-  item: any;
   id:any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
-    config.backdrop = 'static';
+  constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
+		// customize default values of modals used by this component tree
+		config.backdrop = 'static';
 		config.keyboard = false;
     this.ActivityForm = this.fb.group({
       'id': ['', Validators.required],
@@ -37,18 +33,17 @@ export class ActivityComponent {
     })
     this.readActivity();
 	}
-  
 
   addData(){
     const data = this.ActivityForm.value;
-    console.log(this.ActivityForm.value.id);
     this.auth.activity(data).subscribe(res => {
       if(res.success){
       }
     }, err => {
-      alert('ssssddddd');
+      //alert('ssssddddd');
       alert(err)
     })
+    this.modalService.dismissAll()
   }
 
   readActivity(){
@@ -60,23 +55,32 @@ export class ActivityComponent {
   open(content:any) {
 		this.modalService.open(content);
 	}
+  editActivity(item: any) {
+    // Open the modal with the form pre-populated with the activity data
+    this.modalService.open(this.content);
+    this.ActivityForm.setValue(item);
+  }
   content(content: any) {
     throw new Error('Method not implemented.');
 
   }
-  editActivity(item: any) {
-    
-    // Open the modal with the form pre-populated with the activity data
-    this.modalService.open(this.content);
-    this.ActivityForm.setValue(item);
-    // this.ActivityEdit.setValue({
-    //   'name': item.name,
-    //   'code': item.code
-    // });
-    
+  onDelete(data: any) {
+    console.log(data);
+    // Call the API to delete the activity data
+    this.auth.deleteActivity(data).subscribe(res => {
+      if (res) {
+        // Remove the deleted activity from the table
+        const index = this.data.indexOf(data);
+        if (index > -1) {
+          this.data.splice(index, 1);
+        }
+      }
+    }, err => {
+      console.log(err);
+    });
   }
- 
- 
+  
+
   openEdit(id:any, content:any){
     this.id = id;
     this.modalService.open(content);
@@ -88,31 +92,5 @@ export class ActivityComponent {
     this.ActivityEdit.reset();
     this.modalService.dismissAll()
   }
-  
- 
-  
 
-
-
-
-
-
-onDelete(data: any) {
-  console.log(data);
-  // Call the API to delete the activity data
-  this.auth.deleteActivity(data).subscribe(res => {
-    if (res) {
-      // Remove the deleted activity from the table
-      const index = this.data.indexOf(data);
-      if (index > -1) {
-        this.data.splice(index, 1);
-      }
-    }
-  }, err => {
-    console.log(err);
-  });
 }
-  
-}
-
-

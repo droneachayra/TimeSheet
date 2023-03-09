@@ -13,18 +13,22 @@ import { Router } from '@angular/router';
 export class EmployeeComponent implements OnInit {
 
   EmployeeForm!: FormGroup;
-  EmployeeEdit!:FormGroup;
+  EmployeeEdit!: FormGroup;
   message:string='';
   isProcess:Boolean=false;
   className='d-none';
   data:any;
-  _id:any;
-  id: any;
+  id:any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder ,private auth: AuthService,private router:Router) { 
     config.backdrop = 'static';
 		config.keyboard = false;
     this.EmployeeForm = this.fb.group({
+      'firstname': ['', Validators.required],
+      'lastname': ['', Validators.required],
+      'email': ['', Validators.required],
+    })
+    this.EmployeeEdit = this.fb.group({
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
@@ -36,7 +40,27 @@ export class EmployeeComponent implements OnInit {
     
   }
 
-  
+  // employee(){
+  //   const data = this.EmployeeForm.value;
+  //   delete data['confirm'];
+  //   this.auth.employee(data).subscribe(res => {
+  //     if(res.success){    
+  //       this.isProcess=false;
+  //       this.message="Account has been Created! ...";
+  //       this.className="alert alert-success";
+  //       this.router.navigate(['/login']);
+  //     }else{    
+  //       this.isProcess=false;
+  //       this.message="server error..";
+  //       this.className="alert alert-danger";
+  //     }
+  //     // alert("user register succ ....");
+  //     // this.signupFrom.reset();
+  //   }, err => {
+  //     //alert('ssssddddd');
+  //     alert(err)
+  //   })
+  // }
 
   addData(){
     const data = this.EmployeeForm.value;
@@ -47,47 +71,27 @@ export class EmployeeComponent implements OnInit {
       alert(err)
     })
   }
-  onDelete(data:any){
 
-  }
+  open(content:any) {
+		this.modalService.open(content);
+	}
 
-  
   readEmployee(){
     this.auth.getEmployees().subscribe((data) => {
      this.data = data;
     })    
   }  
-  open(content:any) {
-		this.modalService.open(content);
-	}
 
-
-  content(content: any) {
-    throw new Error('Method not implemented.');
-
-  }
-
-  editEmployee(item: any) {
-    // Open the modal with the form pre-populated with the activity data
-    this.modalService.open(this.content);
-    this.EmployeeForm.setValue(item);
-  }
-
-  openEdit(id: any, content: any){
+  openEdit(id:any, content:any){
     this.id = id;
-    const item = this.data.find((d: any) => d._id === id);
-    this.EmployeeEdit.setValue(item);
     this.modalService.open(content);
-
   }
-  // onEdit() {
-  //   const data = this.EmployeeEdit.value;
-  //   this.auth.editActivity(this.id, data).subscribe((response: any) => {
-  //     const index = this.data.findIndex((d: any) => d._id === this.id);
-  //     this.data[index] = response.data;
-  //     this.EmployeeEdit.reset();
-  //     this.modalService.dismissAll();
-  //   });
-  // }
-  
+
+  onEdit(){
+    const data = this.EmployeeEdit.value;
+    this.auth.editActivity(this.id, data)
+    this.EmployeeEdit.reset();
+    this.modalService.dismissAll()
+  }
+
 }

@@ -134,18 +134,20 @@ export class AuthService {
   } 
 
   
-  deleteActivity(data: any) {
-    const url = `${this.apiUrl}deleteActivity/${data}`;
+  deleteActivity(item: any) {
+    const url = `${this.apiUrl}deleteActivity/${item.id}`;
     return this.http.delete(url);
   }
   deleteEmployee(data: any) {
-    const url = `${this.apiUrl}deleteActivity/${data}`;
+    const url = `${this.apiUrl}deleteEmployee/${data}`;
     return this.http.delete(url);
   }
   deleteProject(data: any) {
-    const url = `${this.apiUrl}deleteActivity/${data}`;
+    const url = `${this.apiUrl}deleteProject/${data}`;
     return this.http.delete(url);
   }
+
+  
   editActivity(id: any, data: any) {
     const url = `${this.apiUrl}editactivity/${id}`;
     console.log(url)
@@ -172,7 +174,6 @@ export class AuthService {
       console.log(err);
     });
   }
-  
   
   }
   

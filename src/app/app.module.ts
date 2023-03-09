@@ -20,8 +20,9 @@ import { EmployeeComponent } from './popup/employee/employee.component';
 import { ProjectComponent } from './popup/project/project.component';
 import { ActivityComponent } from './popup/activity/activity.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { ProjectComponentComponent } from './project-component/project-component.component';
-
+// import { ComponentComponent } from './component/component.component';
+// import { Routes, RouterModule } from '@angular/router';
+import { ProjectComponentComponent } from './popup/project-component/project-component.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ProjectComponentComponent } from './project-component/project-component
     EmployeeComponent,
     ProjectComponent,
     ActivityComponent,
+
     ProjectComponentComponent,
    
   ],

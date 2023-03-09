@@ -141,6 +141,20 @@ router.route('/getProject').get((req, res) => {
 
 
 
+
+  
+// router.route('/deleteActivity/:id').delete((req, res, next) => {
+//     Activity.findOneAndRemove(req.params.id).then((error, data) => {
+//       if (error) {
+//         return next(error);
+//       }else {
+//         res.status(200).json({
+//           msg: data
+//         })
+//       }
+//     })
+    
+// })
 router.route('/deleteActivity/:id').delete((req, res, next) => {
     Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
@@ -153,22 +167,34 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
       }
     });
   });
-  
+  router.route('/deleteEmployee/:id').delete((req, res, next) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.status(200).json({
+          msg: 'Activity deleted successfully',
+          data: data
+        });
+      }
+    });
+  });
+  router.route('/deleteProject/:id').delete((req, res, next) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.status(200).json({
+          msg: 'Activity deleted successfully',
+          data: data
+        });
+      }
+    });
+  });
 
 
-// router.put('/editactivity/:id', (req, res) => {
-//     Activity.findOneAndUpdate(
-//       { id: req.params.id },
-//       { $set: { name: req.body.name, code: req.body.code } },
-//       { new: true }
-//     ).then((result) => {
-//       res.json({ success: true, message: "Activity updated successfully", data: result });
-//     }).catch((err) => {
-//       res.json({ success: false, message: "Failed to update", error: err });
-//     });
-//   });
-  
-  router.route('/editactivity/:id').put((req, res) => {
+ 
+router.route('/editactivity/:id').put((req, res) => {
     Activity.findOneAndUpdate(
       { id: req.params.id },
       { $set: { name: req.body.name, code: req.body.code } },
@@ -204,8 +230,7 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
-
-
+  
 
 module.exports = router
 
@@ -214,15 +239,6 @@ module.exports = router
 
 
 
-// router.route('/delete/:id').delete((req, res, next) => {
-//     Activity.findByIdAndRemove(req.params.id).then((error, data) => {
-//       if (error) {
-//         return next(error);
-//       }else {
-//         res.status(200).json({
-//           msg: data
-//         })
-//       }
-//     })
-    
-// })
+
+
+

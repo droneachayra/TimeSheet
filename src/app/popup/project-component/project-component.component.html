@@ -1,0 +1,23 @@
+<h2>hello {{ item.name }}</h2>
+
+<button type="button" class="btn btn-outline-dark" (click)="exporttoCSV()">Edit</button>
+
+
+
+<template>
+    <div>
+      <p>Name: {{ item.name }}</p>
+      <p>Status: {{ item.status }}</p>
+      <p>Start Time: {{ item.starttime }}</p>
+      <p>End Time: {{ item.endtime }}</p>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    props: {
+      item: Object // receive the item data as a prop
+    }
+  };
+  </script>
+  

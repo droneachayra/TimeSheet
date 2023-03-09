@@ -3,6 +3,10 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from 'src/app/service/auth.service';
+import { Router } from '@angular/router';
+
+
+
 
 @Component({
   selector: 'app-project',
@@ -12,20 +16,26 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class ProjectComponent {
   ProjectForm!: FormGroup;
+  ProjectEdit!: FormGroup;
   data:any;
+  id:any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService ,private router: Router) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
     this.ProjectForm = this.fb.group({
       'id': ['', Validators.required],
       'name': ['', Validators.required],
-      'Procode': ['', Validators.required],
       'status': ['', Validators.required],
       'starttime': ['', Validators.required],
       'endtime': ['', Validators.required]
-
+    })
+    this.ProjectEdit = this.fb.group({
+      'name': ['', Validators.required],
+      'status': ['', Validators.required],
+      'starttime': ['', Validators.required],
+      'endtime': ['', Validators.required]
     })
     this.readProject();
 	}
@@ -49,5 +59,28 @@ export class ProjectComponent {
      this.data = data;
     })    
   }  
+
+  openEdit(id:any, content:any){
+    this.id = id;
+    this.modalService.open(content);
+  }
+
+  onEdit(){
+    const data = this.ProjectEdit.value;
+    this.auth.editActivity(this.id, data)
+    this.ProjectEdit.reset();
+    this.modalService.dismissAll()
+  }
+
+  // redirect it to a differnet component 
+  redirectToComponent(id: number) {
+    this.router.navigate(["/project-component", id]);
+
+  }
+  goToPage(){
+    
+  }
+
+
 
 }
