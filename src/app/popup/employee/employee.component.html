@@ -5,20 +5,48 @@
 	</div>
 	<div class="modal-body">
 		<form [formGroup]="EmployeeForm" class ="text-left" action="">
-            <div class="form-group"><br/>
-                <label>id</label>
-                <input type="text" class="form-control" placeholder="First Name" formControlName="firstname">
-
-                <label>name</label>
-                <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname">
-
-                <label>code </label>
-                <input type="text" class="form-control" placeholder="Email" formControlName="email">
-            </div><br>
+            <div class="mb-3">
+                <label for="id-input" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="id-input" formControlName="firstname">
+            </div>
+            <div class="mb-3">
+                <label for="name-input" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="name-input" formControlName="lastname">
+            </div>
+            <div class="mb-3">
+                <label for="code-input" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="code-input" formControlName="email">
+            </div>
         </form>
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="addData()">Save</button>
+	</div>
+</ng-template>
+
+<ng-template #edit let-c="close" let-d="dismiss">
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="EmployeeEdit">
+            <div class="mb-3">
+                <label for="id-input" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="id-input" formControlName="firstname">
+            </div>
+            <div class="mb-3">
+                <label for="name-input" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="name-input" formControlName="lastname">
+            </div>
+            <div class="mb-3">
+                <label for="code-input" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="code-input" formControlName="email">
+            </div>
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="onEdit()">Edit</button>
 	</div>
 </ng-template>
 
@@ -32,6 +60,7 @@
                         <th>First Name</th>
                         <th>Last Name</th>
 						<th>Email</th>
+                        <th>Functionality</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +68,10 @@
                         <td>{{ item.firstname }}</td>
                         <td>{{ item.lastname }}</td>
 						<td>{{ item.email }}</td>
+                        <td class="actions">
+                            <button class="btn btn-sm btn-primary btn-edit">Edit</button>
+                            <button class="btn btn-sm btn-danger btn-action">Delete</button>
+                          </td>
                     </tr>
                 </tbody>
             </table>

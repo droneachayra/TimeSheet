@@ -13,15 +13,22 @@ import { Router } from '@angular/router';
 export class EmployeeComponent implements OnInit {
 
   EmployeeForm!: FormGroup;
+  EmployeeEdit!: FormGroup;
   message:string='';
   isProcess:Boolean=false;
   className='d-none';
   data:any;
+  id:any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder ,private auth: AuthService,private router:Router) { 
     config.backdrop = 'static';
 		config.keyboard = false;
     this.EmployeeForm = this.fb.group({
+      'firstname': ['', Validators.required],
+      'lastname': ['', Validators.required],
+      'email': ['', Validators.required],
+    })
+    this.EmployeeEdit = this.fb.group({
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
@@ -74,5 +81,17 @@ export class EmployeeComponent implements OnInit {
      this.data = data;
     })    
   }  
+
+  openEdit(id:any, content:any){
+    this.id = id;
+    this.modalService.open(content);
+  }
+
+  onEdit(){
+    const data = this.EmployeeEdit.value;
+    this.auth.editActivity(this.id, data)
+    this.EmployeeEdit.reset();
+    this.modalService.dismissAll()
+  }
 
 }

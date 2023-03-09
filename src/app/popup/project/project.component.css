@@ -20,4 +20,18 @@
   button {
     margin-bottom: 20px;
   }
+  button.btn-edit {
+    margin-right: 10px;
+  }
+  
+  button.btn-action {
+    margin-left: 10px;
+  }
+  
+  td.actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
  

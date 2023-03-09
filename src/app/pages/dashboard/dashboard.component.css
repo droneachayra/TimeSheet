@@ -1,7 +1,7 @@
 button {
     width:12ch;
 }
-    
+/*     
 .sidebar {
     position: absolute;
     top: 75px;
@@ -10,10 +10,10 @@ button {
     background-color: #f8f9fa;
     padding: 20px;
     overflow-y: auto;
-}
+} */
    
 .rightbar {
-    margin-left: 200px; /* set the margin to the width of the sidebar */
+    /* margin-left: 200px; set the margin to the width of the sidebar */
     width: calc(100% - 200px); /* calculate the width of the right bar to take up the entire page */
     float: left;
   }
@@ -22,3 +22,13 @@ button {
     margin-bottom: 10px;
 }
     
+
+.sidebar {
+    position: absolute;
+    top: 74px; /* adjust as needed based on the height of your header */
+    left: 0;
+    width: 200px; /* adjust as needed based on your layout */
+    height: calc(100% - 110px); /* adjust as needed based on the height of your header and footer */
+    background-color: #f8f9fa; /* set your preferred background color */
+    padding: 10px;
+  }
