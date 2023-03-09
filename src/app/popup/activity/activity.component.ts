@@ -79,6 +79,21 @@ export class ActivityComponent {
       console.log(err);
     });
   }
+  // onDelete(data: any) {
+  //   console.log(data);
+  //   // Call the API to delete the activity data
+  //   this.auth.deleteActivity(data).subscribe(res => {
+  //     if (res) {
+  //       // Remove the deleted activity from the table
+  //       const index = this.data.indexOf(data);
+  //       if (index > -1) {
+  //         this.data.splice(index, 1);
+  //       }
+  //     }
+  //   }, err => {
+  //     console.log(err);
+  //   });
+  // }
   
 
   openEdit(id:any, content:any){

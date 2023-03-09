@@ -7,7 +7,7 @@
 		<form [formGroup]="ActivityForm">
             <div class="mb-3">
                 <label for="id-input" class="form-label">ID:</label>
-                <input type="text" class="form-control" id="id-input" formControlName="id">
+                <input type="number" class="form-control" id="id-input" formControlName="id">
             </div>
             <div class="mb-3">
                 <label for="name-input" class="form-label">Name:</label>
@@ -67,7 +67,7 @@
                         <td>{{ item.code }}</td>
                         <td class="actions">
                             <button class="btn btn-sm btn-primary btn-edit" (click)="openEdit(item.id ,edit)">Edit</button>
-                            <button class="btn btn-sm btn-danger btn-action" (click)="onDelete(data)" >Delete</button>
+                            <button class="btn btn-sm btn-danger btn-action" (click)="onDelete(item.id)" >Delete</button>
                           </td>
                       </tr>
                 </tbody>

@@ -7,13 +7,14 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-project-component',
   templateUrl: './project-component.component.html',
   styleUrls: ['./project-component.component.css']
 })
-export class ProjectComponentComponent implements OnInit {
+export class ProjectComponentComponent  {
   ProjectComponentForm!: FormGroup;
   data:any;
   // data: any[] = [];
@@ -31,7 +32,8 @@ export class ProjectComponentComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private auth:AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private http:HttpClient
     // private dataService: DataService
   ) {
     
@@ -43,14 +45,14 @@ export class ProjectComponentComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    // this.dataService.getData().subscribe((res: any[] | undefined) => {
-    //   this.data = res;
-    // });
-    this.readEmployee();
-    // this.item = this.dataService.getItemById(id);
-  }
+  // ngOnInit(): void {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   // this.dataService.getData().subscribe((res: any[] | undefined) => {
+  //   //   this.data = res;
+  //   // });
+  //   this.readEmployee();
+  //   // this.item = this.dataService.getItemById(id);
+  // }
   readEmployee(){
     
     this.auth.getEmployees().subscribe((data) => {
@@ -65,36 +67,28 @@ export class ProjectComponentComponent implements OnInit {
      console.log(this.data);
     })    
   }  
-  exporttoCSV(){
-    var csv_data = [];
- 
-    // Get each row data
-    var rows = document.getElementsByTagName('tr');
-    for (var i = 0; i < rows.length; i++) { 
-      // Get each column data
-      var cols = rows[i].querySelectorAll('td,th'); 
-      // Stores each csv row data
-      var csvrow = [];
-      for (var j = 0; j < cols.length; j++) { 
-        // Get the text data of each cell
-        // of a row and push it to csvrow
-        csvrow.push(cols[j].innerHTML);
-      } 
-      // Combine each column value with comma
-      csv_data.push(csvrow.join(","));
-    } 
-    // Combine each row data with new line character
-    var csv_data1 = csv_data.join('\n'); 
-    // Call this function to download csv file 
-    this.downloadCSVFile(csv_data1); 
 
+  exportToExcel(): void {
+    const worksheet = XLSX.utils.json_to_sheet(this.data);
+    const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    this.saveAsExcelFile(excelBuffer, 'data');
   }
-  downloadCSVFile(csv_data1: string) {
-    throw new Error('Method not implemented.');
+  
+  private saveAsExcelFile(buffer: any, fileName: string): void {
+    const data: Blob = new Blob([buffer], {type: 'application/octet-stream'});
+    const url = window.URL.createObjectURL(data);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${fileName}.xlsx`;
+    link.click();
+    setTimeout(() => {
+      window.URL.revokeObjectURL(url);
+      link.remove();
+    }, 100);
   }
-  // app.get('/', function(req, res) {
-  //   res.render('myComponent', { items: items });
-  // });
+  
+
   appendData(){
     const data = this.ProjectComponentForm.value;
     this.auth.projectComponent(data).subscribe(res => {
@@ -105,6 +99,7 @@ export class ProjectComponentComponent implements OnInit {
     })
   }
 }
+
 
 
 //hey about that you now you know what its like to be  liek a heaplysepian 

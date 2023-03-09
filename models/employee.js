@@ -14,15 +14,15 @@ const employeelist=new Schema({
 
 module.exports=mongoose.model('Employee',employeelist)
 
-let Employee = new Schema({
-    name: {type: String},
-    email: {
-       type: String
-    },
-    designation: {
-       type: String
-    },
-    phoneNumber: {       type: Number    }
- }, {
-    collection: 'employees'
- })
+// let Employee = new Schema({
+//     name: {type: String},
+//     email: {
+//        type: String
+//     },
+//     designation: {
+//        type: String
+//     },
+//     phoneNumber: {       type: Number    }
+//  }, {
+//     collection: 'employees'
+//  })

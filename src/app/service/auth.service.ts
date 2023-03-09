@@ -150,12 +150,12 @@ export class AuthService {
     const url = `${this.apiUrl}deleteActivity/${item.id}`;
     return this.http.delete(url);
   }
-  deleteEmployee(data: any) {
-    const url = `${this.apiUrl}deleteEmployee/${data}`;
+  deleteEmployee(item: any) {
+    const url = `${this.apiUrl}deleteEmployee/${item.id}`;
     return this.http.delete(url);
   }
-  deleteProject(data: any) {
-    const url = `${this.apiUrl}deleteProject/${data}`;
+  deleteProject(item: any) {
+    const url = `${this.apiUrl}deleteProject/${item.id}`;
     return this.http.delete(url);
   }
 

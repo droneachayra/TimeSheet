@@ -3,6 +3,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-employee',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./employee.component.css'],
   providers: [NgbModalConfig, NgbModal],
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent {
 
   EmployeeForm!: FormGroup;
   EmployeeEdit!: FormGroup;
@@ -20,7 +21,7 @@ export class EmployeeComponent implements OnInit {
   data:any;
   id:any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder ,private auth: AuthService,private router:Router) { 
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder ,private auth: AuthService,private router:Router,private http:HttpClient ) { 
     config.backdrop = 'static';
 		config.keyboard = false;
     this.EmployeeForm = this.fb.group({
@@ -35,36 +36,13 @@ export class EmployeeComponent implements OnInit {
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
+      'password': ['', Validators.required],
+
     })
     this.readEmployee();
   }
 
-  ngOnInit() {
-    
-  }
-
-  // employee(){
-  //   const data = this.EmployeeForm.value;
-  //   delete data['confirm'];
-  //   this.auth.employee(data).subscribe(res => {
-  //     if(res.success){    
-  //       this.isProcess=false;
-  //       this.message="Account has been Created! ...";
-  //       this.className="alert alert-success";
-  //       this.router.navigate(['/login']);
-  //     }else{    
-  //       this.isProcess=false;
-  //       this.message="server error..";
-  //       this.className="alert alert-danger";
-  //     }
-  //     // alert("user register succ ....");
-  //     // this.signupFrom.reset();
-  //   }, err => {
-  //     //alert('ssssddddd');
-  //     alert(err)
-  //   })
-  // }
-
+  
   addData(){
     const data = this.EmployeeForm.value;
     this.auth.employee(data).subscribe(res => {
@@ -92,9 +70,48 @@ export class EmployeeComponent implements OnInit {
 
   onEdit(){
     const data = this.EmployeeEdit.value;
-    this.auth.editActivity(this.id, data)
+    this.auth.editEmployee(this.id, data);
     this.EmployeeEdit.reset();
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
   }
+  onDeleteE(data: any) {
+    console.log(data);
+    // Call the API to delete the activity data
+    this.auth.deleteEmployee(data).subscribe(res => {
+      if (res) {
+        // Remove the deleted activity from the table
+        const index = this.data.indexOf(data);
+        if (index > -1) {
+          this.data.splice(index, 1);
+        }
+      }
+    }, err => {
+      console.log(err);
+    });
+  }
+  
 
 }
+
+
+  // employee(){
+  //   const data = this.EmployeeForm.value;
+  //   delete data['confirm'];
+  //   this.auth.employee(data).subscribe(res => {
+  //     if(res.success){    
+  //       this.isProcess=false;
+  //       this.message="Account has been Created! ...";
+  //       this.className="alert alert-success";
+  //       this.router.navigate(['/login']);
+  //     }else{    
+  //       this.isProcess=false;
+  //       this.message="server error..";
+  //       this.className="alert alert-danger";
+  //     }
+  //     // alert("user register succ ....");
+  //     // this.signupFrom.reset();
+  //   }, err => {
+  //     //alert('ssssddddd');
+  //     alert(err)
+  //   })
+  // }

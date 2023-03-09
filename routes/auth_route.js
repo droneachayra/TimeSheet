@@ -88,6 +88,7 @@ router.post('/activity', (req, res) => {
 
 router.post('/employee', (req, res) => {
     const emp = new Employee({
+        id: req.body.id,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email :req.body.email,
@@ -169,12 +170,12 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
     });
   });
   router.route('/deleteEmployee/:id').delete((req, res, next) => {
-    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
+    Activity.findByIdAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
       } else {
         res.status(200).json({
-          msg: 'Activity deleted successfully',
+          msg: 'Employee deleted successfully',
           data: data
         });
       }
@@ -186,7 +187,7 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
         return next(error);
       } else {
         res.status(200).json({
-          msg: 'Activity deleted successfully',
+          msg: 'Project deleted successfully',
           data: data
         });
       }
@@ -220,7 +221,7 @@ router.route('/editactivity/:id').put((req, res) => {
   });
 
   router.route('/editproject/:id').put((req, res) => {
-    console.log("ahahahah")
+   
     Project.findOneAndUpdate(
       { id: req.params.id },
       { $set: { name: req.body.name, status: req.body.status, starttime:req.body.starttime, endtime:req.body.endtime } },
