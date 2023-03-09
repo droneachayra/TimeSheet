@@ -230,7 +230,6 @@ router.route('/editactivity/:id').put((req, res) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
-  
 
 module.exports = router
 

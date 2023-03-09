@@ -14,10 +14,6 @@
                 <input type="text" class="form-control" id="name-input" formControlName="name">
             </div>
             <div class="mb-3">
-                <label for="Procode-input" class="form-label">Procode</label>
-                <input type="text" class="form-control" id="Procode-input" formControlName="Procode">
-            </div>
-            <div class="mb-3">
                 <label for="status-input" class="form-label">Status:</label>
                 <select class="form-control" id="status-input" formControlName="status">
                     <option value="">--Select a service type--</option>
@@ -86,7 +82,6 @@
                     <tr>
                         <th>ID</th>
                         <th>Name</th>
-                        <th>Procode</th>
                         <th>Status</th>
 						<th>Start Time</th>
                         <th>End Time</th>
@@ -96,21 +91,20 @@
                 <tbody>
                     <tr *ngFor="let item of data">
                         <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
+                       
+                         <td><a [routerLink]="['/project_component',item.id]">{{ item.name }}</a></td>
+                        <!-- <td>{{ item.name }}</td> -->
 						<td>{{ item.status }}</td>
                         <td>{{ item.starttime }}</td>
                         <td>{{ item.endtime }}</td>
                         <td class="actions">
                             <button class="btn btn-sm btn-primary btn-edit">Edit</button>
                             <button class="btn btn-sm btn-danger btn-action">Delete</button>
-                            <!-- <button class="btn btn-sm btn-primary btn-edit" (click)="redirectToComponent(item.id)">Task</button> -->
-                          </td>
+                            
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
- <!-- <td><a [routerLink]="['/project_component/',item.id]">{{ item.name }}</a></td> -->
-  <!-- <td (click)="redirectToComponent(item.id)">{{ item.id }}</td> -->
