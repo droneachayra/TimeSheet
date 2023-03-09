@@ -6,6 +6,7 @@ import { MongoClient } from 'mongodb';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-project-component',
@@ -14,14 +15,18 @@ import { FormGroup } from '@angular/forms';
 })
 export class ProjectComponentComponent implements OnInit {
   ProjectComponentForm!: FormGroup;
+  data:any;
+  // data: any[] = [];
+  records!:any[];
 
 // onSubmit(_t11: NgForm) {
 // throw new Error('Method not implemented.');
 // }
 
-  item:any;
-employeeService: any;
-  data!: any;
+  // item:any;
+  employeeService: any;
+  dataService: any;
+  // data!: any;
   
   constructor(
     private route: ActivatedRoute,
@@ -32,7 +37,6 @@ employeeService: any;
     
     this.ProjectComponentForm = this.fb.group({
       'taskName': ['', Validators.required],
-     
       'employeelist': ['', Validators.required],
       'filename': ['', Validators.required],
       'activity': ['', Validators.required]
@@ -41,6 +45,9 @@ employeeService: any;
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    // this.dataService.getData().subscribe((res: any[] | undefined) => {
+    //   this.data = res;
+    // });
     this.readEmployee();
     // this.item = this.dataService.getItemById(id);
   }
@@ -51,6 +58,12 @@ employeeService: any;
      
     })   
     console.log(this.data); 
+  }  
+  readProjectComponent(){
+    this.auth.getProjectComponent().subscribe((data) => {
+     this.data = data;
+     console.log(this.data);
+    })    
   }  
   exporttoCSV(){
     var csv_data = [];
@@ -92,6 +105,9 @@ employeeService: any;
     })
   }
 }
+
+
+//hey about that you now you know what its like to be  liek a heaplysepian 
 
 
 

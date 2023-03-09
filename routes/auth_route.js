@@ -253,6 +253,12 @@ router.route('/editactivity/:id').put((req, res) => {
     })
 });
 
+router.route('/getProjectComponent').get((req, res) => {
+  projectComponent.find().then((result) => {
+      res.json(result);
+  })
+})
+
 
 module.exports = router
 

@@ -69,6 +69,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getprojectComponent() {
+    throw new Error('Method not implemented.');
+  }
   updateActivity(data: any) {
     throw new Error('Method not implemented.');
   }
@@ -138,7 +141,10 @@ export class AuthService {
     const url = `${this.apiUrl}getProject`;
     return this.http.get(url);
   } 
-
+  getProjectComponent() {
+    const url = `${this.apiUrl}getProjectComponent`;
+    return this.http.get(url);
+  } 
   
   deleteActivity(item: any) {
     const url = `${this.apiUrl}deleteActivity/${item.id}`;
