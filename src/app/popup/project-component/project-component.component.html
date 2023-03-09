@@ -1,9 +1,12 @@
-
+<!-- 
 
 <h2>hello {{ item.name }}</h2>
 
-<button type="button" class="btn btn-outline-dark" (click)="exporttoCSV()">Edit</button>
+<button type="button" class="btn btn-outline-dark" (click)="exporttoCSV()">hepallysepian</button>
 <br>
+<button type="button" class="btn btn-outline-dark" (click)="exporttoCSV()">hepallysepian</button>
+<h2>hello {{ item.name }}</h2>
+
 
 
 <h2>Just couz its like a hepallysepian </h2>
@@ -16,5 +19,129 @@
     </div>
   </template>
   
- 
+  -->
+
+  <!-- <div class="container my-5">
+    <div class="row">
+      <div class="col-lg-5">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Employee Form</h5>
+            <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+              <div class="form-group">
+                <label for="name">Name<span class="text-danger">*</span></label>
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" class="form-control" placeholder="Enter full name" required>
+              </div>
+              <div class="form-group">
+                <label for="position">Position</label>
+                <input type="text" name="position" #position="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" class="form-control" placeholder="Eg: Senior Developer">
+              </div>
+              <div class="form-group">
+                <label for="office">Office</label>
+                <input type="text" name="office" #office="ngModel" [(ngModel)]="employeeService.selectedEmployee.office" class="form-control" placeholder="Enter office location">
+              </div>
+              <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="text" name="salary" #salary="ngModel" [(ngModel)]="employeeService.selectedEmployee.salary" class="form-control" placeholder="Salary per annum">
+              </div>
+              <button class="btn btn-primary mr-2" type="submit" [disabled]="!employeeForm.valid">Submit</button>
+            </form>
+     
+  
+            <div class="col s7">
+                <table class="responsive-table highlight">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tr *ngFor="let emp of employeeService.employees">
+                      <td>{{emp.name}}</td>
+                      <td>{{emp.position}}</td>
+                      <td>{{emp.office}}</td>
+                      <td>
+                          <a class="action-btn" >
+                            <i class="material-icons">edit</i>
+                          </a>
+                          <a class="action-btn" >
+                            <i class="material-icons">delete</i>
+                          </a>
+                        </td>
+                    </tr>
+                  </table>
+            </div>
+           -->
+
+
+           <div class="container">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Project </h5>
+                    <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+                      <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+                      <div class="form-group">
+                        <label for="name">Task Name<span class="text-danger">*</span></label>
+                        <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" placeholder="Enter full name" required class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="position">Filename</label>
+                        <input type="text" name="position" #position="ngModel" [(ngModel)]="employeeService.selectedEmployee.position" placeholder="Enter File-Name" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="office">Employee List</label>
+                        <input type="text" name="office" #office="ngModel" [(ngModel)]="employeeService.selectedEmployee.office" placeholder="Enter Employee List" class="form-control">
+                      </div>
+                      <div class="form-group">
+                        <label for="salary">Activities</label>
+                        <input type="text" name="salary" #salary="ngModel" [(ngModel)]="employeeService.selectedEmployee.salary" placeholder="Enter Activities " class="form-control">
+                      </div>
+                      <button class="btn btn-primary" type="submit" [disabled]="!employeeForm.valid">Submit</button>
+
+                      <button class="btn btn-secondary" type="button">CSV</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Task Name</th>
+                      <th>File Name</th>
+                      <th>Employee List</th>
+                      <th>Activities</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let emp of employeeService.employees">
+                      <td>{{emp.Name}}</td>
+                      <td>{{emp.File}}</td>
+                      <td>{{emp.Employee}}</td>
+                      <td>{{emp.Activities}}</td>
+                      <td>
+                        <a class="btn btn-sm btn-primary" >
+                          <i class="fas fa-edit"></i>
+                        </a>
+                        <a class="btn btn-sm btn-danger" >
+                          <i class="fas fa-trash-alt"></i>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          
+        
+      
+    
+  
+  
   

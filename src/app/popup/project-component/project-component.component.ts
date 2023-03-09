@@ -1,10 +1,10 @@
-import { Component , OnInit} from '@angular/core';
-// import { ProjectComponent } from '../project/project.component';
-import { ActivatedRoute } from '@angular/router';
+import { Component , OnInit} from '@angular/core';import { ActivatedRoute } from '@angular/router';
 import { ActivityComponent } from '../activity/activity.component';
 import { EmployeeComponent } from '../employee/employee.component';
 import { ProjectComponent } from '../project/project.component';
 import { MongoClient } from 'mongodb';
+import { NgForm } from '@angular/forms';
+
 
 @Component({
   selector: 'app-project-component',
@@ -12,8 +12,12 @@ import { MongoClient } from 'mongodb';
   styleUrls: ['./project-component.component.css']
 })
 export class ProjectComponentComponent implements OnInit {
+onSubmit(_t11: NgForm) {
+throw new Error('Method not implemented.');
+}
 
   item:any;
+employeeService: any;
   constructor(
     private route: ActivatedRoute,
     // private dataService: DataService
@@ -54,6 +58,7 @@ export class ProjectComponentComponent implements OnInit {
   //   res.render('myComponent', { items: items });
   // });
 }
+
 
 
 

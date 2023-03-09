@@ -24,6 +24,7 @@ export class EmployeeComponent implements OnInit {
     config.backdrop = 'static';
 		config.keyboard = false;
     this.EmployeeForm = this.fb.group({
+      'id': ['', Validators.required],
       'firstname': ['', Validators.required],
       'lastname': ['', Validators.required],
       'email': ['', Validators.required],
