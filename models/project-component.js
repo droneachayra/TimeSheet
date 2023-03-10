@@ -12,7 +12,7 @@ type: String
 employeelist: {
 type: String
 },
-activity: {
+activitylist: {
 type: String
 }
 }, {

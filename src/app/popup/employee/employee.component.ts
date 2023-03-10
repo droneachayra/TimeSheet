@@ -53,7 +53,7 @@ export class EmployeeComponent {
     })
     this.modalService.dismissAll();
 
-   location.reload();
+     location.reload();
   }
 
   open(content:any) {
@@ -123,25 +123,3 @@ export class EmployeeComponent {
 
 }
 
-
-  // employee(){
-  //   const data = this.EmployeeForm.value;
-  //   delete data['confirm'];
-  //   this.auth.employee(data).subscribe(res => {
-  //     if(res.success){    
-  //       this.isProcess=false;
-  //       this.message="Account has been Created! ...";
-  //       this.className="alert alert-success";
-  //       this.router.navigate(['/login']);
-  //     }else{    
-  //       this.isProcess=false;
-  //       this.message="server error..";
-  //       this.className="alert alert-danger";
-  //     }
-  //     // alert("user register succ ....");
-  //     // this.signupFrom.reset();
-  //   }, err => {
-  //     //alert('ssssddddd');
-  //     alert(err)
-  //   })
-  // }

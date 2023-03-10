@@ -71,7 +71,7 @@ export class ProjectComponent {
     this.ProjectEdit.reset();
     this.modalService.dismissAll()
   }
-  onDeleteP(data: any) {
+  onDelete(data: any) {
     console.log(data);
     // Call the API to delete the activity data
     this.auth.deleteProject(data).subscribe(res => {

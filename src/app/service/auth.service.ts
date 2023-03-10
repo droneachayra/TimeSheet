@@ -121,7 +121,7 @@ export class AuthService {
     return this.http.post(url, data, { headers });
   }
   projectComponent(data:any):Observable<any>{
-    const url = `${this.apiUrl}projectComponent`;
+    const url = `${this.apiUrl}ProjectComponent`;
     const headers = this.getAuthHeaders();
     return this.http.post(url, data, { headers });
   }
@@ -147,15 +147,15 @@ export class AuthService {
   } 
   
   deleteActivity(item: any) {
-    const url = `${this.apiUrl}deleteActivity/${item.id}`;
+    const url = `${this.apiUrl}deleteActivity/${item}`;
     return this.http.delete(url);
   }
   deleteEmployee(item: any) {
-    const url = `${this.apiUrl}deleteEmployee/${item.id}`;
+    const url = `${this.apiUrl}deleteEmployee/${item}`;
     return this.http.delete(url);
   }
   deleteProject(item: any) {
-    const url = `${this.apiUrl}deleteProject/${item.id}`;
+    const url = `${this.apiUrl}deleteProject/${item}`;
     return this.http.delete(url);
   }
 

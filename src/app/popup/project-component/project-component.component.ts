@@ -17,8 +17,10 @@ import * as XLSX from 'xlsx';
 export class ProjectComponentComponent implements OnInit  {
   ProjectComponentForm!: FormGroup;
   data:any;
+  emp:any;
   // data: any[] = [];
   records!:any[];
+  act:any;
 
 // onSubmit(_t11: NgForm) {
 // throw new Error('Method not implemented.');
@@ -27,6 +29,7 @@ export class ProjectComponentComponent implements OnInit  {
   // item:any;
   employeeService: any;
   dataService: any;
+  input: any;
   // data!: any;
   
   constructor(
@@ -39,37 +42,64 @@ export class ProjectComponentComponent implements OnInit  {
     
     this.ProjectComponentForm = this.fb.group({
       'taskName': ['', Validators.required],
-      'employeelist': ['', Validators.required],
       'filename': ['', Validators.required],
-      'activity': ['', Validators.required]
+      'activitylist': ['', Validators.required],
+      'employeelist': ['', Validators.required]
     })
   }
 
   ngOnInit(): void {
-    // const id = this.route.snapshot.paramMap.get('id');
-    // this.dataService.getData().subscribe((res: any[] | undefined) => {
-    //   this.data = res;
-    // });
+    this.getProjectComponent();
+
     this.auth.getEmployees().subscribe((data) => {
-      this.data = data;
+      this.emp = data;
+      
+
       
      })  
+     this.auth.getActivity().subscribe((data) => {
+      this.act = data;
+      
+      
+
+      
+     }) 
+     
     // this.readEmployee();
     // this.item = this.dataService.getItemById(id);
   }
-  readEmployee(){
+  appendData(){
+    const data = this.ProjectComponentForm.value;
+   
+    this.auth.projectComponent(data).subscribe(res => {
+      if(res.success){
+      }
+    }, err => {
+      alert(err)
+    })
     
-    this.auth.getEmployees().subscribe((data) => {
-     this.data = data;
+ 
+  }
+  // readEmployee(){
+    
+  //   this.auth.getEmployees().subscribe((data) => {
+  //    this.emp = data;
      
-    })   
-    console.log(this.data); 
-  }  
-  readProjectComponent(){
+     
+  //   })   
+    
+  // }  
+  getProjectComponent(){
+    
     this.auth.getProjectComponent().subscribe((data) => {
      this.data = data;
-     console.log(this.data);
-    })    
+     console.log(data);
+     
+     
+     
+    })  
+    console.log(this.data);
+
   }  
 
   exportToExcel(): void {
@@ -93,15 +123,7 @@ export class ProjectComponentComponent implements OnInit  {
   }
   
 
-  appendData(){
-    const data = this.ProjectComponentForm.value;
-    this.auth.projectComponent(data).subscribe(res => {
-      if(res.success){
-      }
-    }, err => {
-      alert(err)
-    })
-  }
+
 }
 
 

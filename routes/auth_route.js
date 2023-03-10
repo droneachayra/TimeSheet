@@ -173,7 +173,7 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
     });
   });
   router.route('/deleteEmployee/:id').delete((req, res, next) => {
-    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
+    Employee.findOneAndDelete({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
       } else {
@@ -184,8 +184,21 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
       }
     });
   });
+  // router.route('/deleteEmployee/:id').delete((req, res, next) => {
+  //   Activity.findOneAndRemove{id: req.params.id}).then((data, error) => {
+  //     if (error) {
+  //       return next(error);
+  //     } else {
+  //       res.status(200).json({
+  //         msg: 'Employee deleted successfully',
+  //         data: data
+  //       });
+  //     }
+  //   });
+  
+
   router.route('/deleteProject/:id').delete((req, res, next) => {
-    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
+    Project.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
       } else {
@@ -235,7 +248,7 @@ router.route('/editactivity/:id').put((req, res) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
-  router.post('/projectComponent', (req, res) => {
+  router.post('/ProjectComponent', (req, res) => {
     
     const pro = new projectComponent({
         taskName: req.body.taskName,
@@ -258,6 +271,7 @@ router.route('/editactivity/:id').put((req, res) => {
 });
 
 router.route('/getProjectComponent').get((req, res) => {
+ 
   projectComponent.find().then((result) => {
       res.json(result);
   })

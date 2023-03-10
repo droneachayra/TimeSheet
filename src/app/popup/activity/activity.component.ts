@@ -70,6 +70,22 @@ export class ActivityComponent {
     throw new Error('Method not implemented.');
 
   }
+  // onDelete(id: number) {
+  //   console.log(id);
+  //   // Call the API to delete the activity data
+  //   this.auth.deleteActivity(id).subscribe(res => {
+  //     if (res) {
+  //       // Remove the deleted activity from the table
+  //       const index = this.data.findIndex((item: { id: number; }) => item.id === id);
+  //       if (index > -1) {
+  //         this.data.splice(index, 1);
+  //       }
+  //     }
+  //   }, err => {
+  //     console.log(err);
+  //   });
+  // }
+  
   // onDelete(data: any) {
   //   console.log(data);
   //   // Call the API to delete the activity data
@@ -85,42 +101,42 @@ export class ActivityComponent {
   //     console.log(err);
   //   });
   // }
-  onDelete(id: number) {
-    console.log("Deleting activity with ID:", id);
+  // onDelete(data: number) {
+  //   console.log("Deleting activity with ID:", data);
   
-    this.auth.deleteActivity(id).subscribe(
-      res => {
-        console.log("Delete activity response:", res);
+  //   this.auth.deleteActivity(data).subscribe(
+  //     res => {
+  //       console.log("Delete activity response:", res);
   
-        if (res) {
-          // Remove the deleted activity from the table
-          const index = this.data.findIndex((item: { id: number; })  => item.id === id);
-          if (index > -1) {
-            this.data.splice(index, 1);
-          }
+  //       if (res) {
+  //         // Remove the deleted activity from the table
+  //         const index = this.data.findIndex((item: { id: number; })  => item.id === data);
+  //         if (index > -1) {
+  //           this.data.splice(index, 1);
+  //         }
+  //       }
+  //     },
+  //     err => {
+  //       console.error("Error deleting activity:", err);
+  //     }
+  //   );
+  // }
+  
+  onDelete(data: any) {
+    console.log(data);
+    // Call the API to delete the activity data
+    this.auth.deleteActivity(data).subscribe(res => {
+      if (res) {
+        // Remove the deleted activity from the table
+        const index = this.data.indexOf(data);
+        if (index > -1) {
+          this.data.splice(index, 1);
         }
-      },
-      err => {
-        console.error("Error deleting activity:", err);
       }
-    );
+    }, err => {
+      console.log(err);
+    });
   }
-  
-  // onDelete(data: any) {
-  //   console.log(data);
-  //   // Call the API to delete the activity data
-  //   this.auth.deleteActivity(data).subscribe(res => {
-  //     if (res) {
-  //       // Remove the deleted activity from the table
-  //       const index = this.data.indexOf(data);
-  //       if (index > -1) {
-  //         this.data.splice(index, 1);
-  //       }
-  //     }
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
   
 
   openEdit(id:any, content:any){

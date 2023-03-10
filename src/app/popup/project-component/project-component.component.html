@@ -11,12 +11,12 @@
                     <h5 class="card-title">Project </h5>
                     <form [formGroup]="ProjectComponentForm">
                       
-                      <div class="form-group">
+                      <div >
                         <label for="name">Task Name<span class="text-danger">*</span></label>
                         <input type="text" name="taskName"   placeholder="Enter full name" required class="form-control" formControlName="taskName">
                       </div>
                       <div class="d-flex align-items-center">
-                        <div class="form-group flex-fill mr-2">
+                        <div  flex-fill mr-2>
                           <label for="position">Filename</label>
                           <input type="text" name="filename"   placeholder="Select CSV " class="form-control" readonly formControlName="filename">
                         </div>
@@ -26,21 +26,23 @@
                       </div>
                       
                     
-                      <div class="form-group">
-                        <label for="office">Employee List</label>
-                        <input type="text" name="office"   placeholder="Enter Employee List" class="form-control" formControlName="employeelist">
+                      <div >
+                        <label for="activites-dropdown">Activity List</label>
+                        <select id="activities-dropdown" name="activitylist" class="form-control" formControlName="activitylist">
+                          <option  *ngFor="let item of act " [value]=item.name>{{item.name}}</option>
+                         
+                          
+                         
+                        </select>
                       </div>
                      
-                      <!-- <div class="form-group">
-                        <label for="salary">Activities</label>
-                        <input type="text" name="activity"   placeholder="Enter Activities " class="form-control" formControlName="activity">
-                      </div> -->
-                      <div class="form-group">
-                        <label for="activites-dropdown">Employee List</label>
-                        <select id="employee-dropdown" name="activity" class="form-control" formControlName="employee">
-                          <option  *ngFor="let item of data " [value]=item.name>{{item.name}}</option>
+                     
+                      <div >
+                        <label for="employee-dropdown">Employee List</label>
+                        <select id="employee-dropdown" name="employeelist" class="form-control" formControlName="employeelist">
+                          <option  *ngFor="let item of emp " [value]=item.firstname>{{item.firstname}}</option>
                          
-                        
+                          
                          
                         </select>
                       </div>
