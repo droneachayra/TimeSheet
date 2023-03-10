@@ -16,6 +16,7 @@ export class ProjectComponent {
   ProjectEdit!: FormGroup;
   data:any;
   id:any;
+  cd: any;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private http:HttpClient) {
 		// customize default values of modals used by this component tree
@@ -69,7 +70,9 @@ export class ProjectComponent {
     const data = this.ProjectEdit.value;
     this.auth.editProject(this.id, data)
     this.ProjectEdit.reset();
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
+    location.reload();
+
   }
   onDelete(data: any) {
     console.log(data);
@@ -81,6 +84,8 @@ export class ProjectComponent {
         if (index > -1) {
           this.data.splice(index, 1);
         }
+        location.reload();
+        
       }
     }, err => {
       console.log(err);

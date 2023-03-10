@@ -8,6 +8,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import * as XLSX from 'xlsx';
+// import { ChangeEvent } from '@angular/core';
+
 
 @Component({
   selector: 'app-project-component',
@@ -18,18 +20,14 @@ export class ProjectComponentComponent implements OnInit  {
   ProjectComponentForm!: FormGroup;
   data:any;
   emp:any;
-  // data: any[] = [];
+  proj:any;
+ 
   records!:any[];
   act:any;
-
-// onSubmit(_t11: NgForm) {
-// throw new Error('Method not implemented.');
-// }
-
-  // item:any;
   employeeService: any;
-  dataService: any;
+ 
   input: any;
+  ProjectForm: any;
   // data!: any;
   
   constructor(
@@ -53,20 +51,17 @@ export class ProjectComponentComponent implements OnInit  {
 
     this.auth.getEmployees().subscribe((data) => {
       this.emp = data;
-      
-
-      
      })  
-     this.auth.getActivity().subscribe((data) => {
-      this.act = data;
-      
-      
-
+     this.auth.getProject().subscribe((data) => {
+      this.proj = data;
+      console.log(data);
       
      }) 
+     this.auth.getActivity().subscribe((data) => {
+      this.act = data;
+     }) 
      
-    // this.readEmployee();
-    // this.item = this.dataService.getItemById(id);
+   
   }
   appendData(){
     const data = this.ProjectComponentForm.value;
@@ -80,15 +75,6 @@ export class ProjectComponentComponent implements OnInit  {
     
  
   }
-  // readEmployee(){
-    
-  //   this.auth.getEmployees().subscribe((data) => {
-  //    this.emp = data;
-     
-     
-  //   })   
-    
-  // }  
   getProjectComponent(){
     
     this.auth.getProjectComponent().subscribe((data) => {
@@ -121,6 +107,17 @@ export class ProjectComponentComponent implements OnInit  {
       link.remove();
     }, 100);
   }
+  
+  onFileSelected(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      // Do something with the file
+    }
+  }
+  
+  
+  
   
 
 

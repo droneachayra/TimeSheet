@@ -1,106 +1,70 @@
-
-           
-           
-           <div class="container">
-            
-            <div class="row">
-              <div class="col-md-6">
-                <div class="card">
-                  <!-- <h2> Project {{item.procode}}</h2> -->
-                  <div class="card-body">
-                    <h5 class="card-title">Project </h5>
-                    <form [formGroup]="ProjectComponentForm">
-                      
-                      <div >
-                        <label for="name">Task Name<span class="text-danger">*</span></label>
-                        <input type="text" name="taskName"   placeholder="Enter full name" required class="form-control" formControlName="taskName">
-                      </div>
-                      <div class="d-flex align-items-center">
-                        <div  flex-fill mr-2>
-                          <label for="position">Filename</label>
-                          <input type="text" name="filename"   placeholder="Select CSV " class="form-control" readonly formControlName="filename">
-                        </div>
-                        <br>
-                        <button class="btn btn-secondary btn-short" type="button" (click)="exportToExcel()">CSV</button>
-
-                      </div>
-                      
-                    
-                      <div >
-                        <label for="activites-dropdown">Activity List</label>
-                        <select id="activities-dropdown" name="activitylist" class="form-control" formControlName="activitylist">
-                          <option  *ngFor="let item of act " [value]=item.name>{{item.name}}</option>
-                         
-                          
-                         
-                        </select>
-                      </div>
-                     
-                     
-                      <div >
-                        <label for="employee-dropdown">Employee List</label>
-                        <select id="employee-dropdown" name="employeelist" class="form-control" formControlName="employeelist">
-                          <option  *ngFor="let item of emp " [value]=item.firstname>{{item.firstname}}</option>
-                         
-                          
-                         
-                        </select>
-                      </div>
-                      <button class="btn btn-primary" type="submit" (click)="appendData()" >Submit</button>
-
-                      
-                    </form>
-                  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <!-- <h2 *ngFor="let item of"> Project {{item.procode}}</h2> -->
+          <!-- <h2> Project {{ ProjectComponentForm.get('projectcode').value }}</h2> -->
+        
+          <div class="card-body">
+            <h2 class="card-title">Project {{proj.procode}} </h2>
+            <form [formGroup]="ProjectComponentForm">
+              <div class="form-group">
+                <label for="name">Task Name<span class="text-danger">*</span></label>
+                <input type="text" name="taskName" placeholder="Enter full name" required class="form-control" formControlName="taskName">
+              </div>
+              <!-- <div class="d-flex align-items-center">
+                <div class="form-group flex-fill mr-2">
+                  <label for="position">Filename</label>
+                  <input type="text" name="filename" placeholder="Select CSV " class="form-control" readonly formControlName="filename">
                 </div>
+                <button class="btn btn-secondary btn-short" type="button" (click)="exportToExcel()">CSV</button>
+              </div> -->
+              <div class="form-group flex-fill mr-2">
+                <label for="position">Filename</label>
+                <input type="text" name="filename" placeholder="Select CSV" class="form-control" readonly formControlName="filename">
+                <input type="file" name="csvFile" class="form-control" (change)="onFileSelected($event)">
               </div>
-              <div class="col-md-6">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Task Name</th>
-                      <th>File Name</th>
-                      <th>Employee List</th>
-                      <th>Activities</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of data">
-                      <td>{{item.taskName}}</td>
-                      <td>{{item.filename}}</td>
-                      <td>{{item.employeelist}}</td>
-                      <td>{{item.activity}}</td>
-                       
-                    </tr>
-                  </tbody>
-                </table>
+              <!-- <input type="file" name="csvFile" class="form-control" (change)="onFileSelected($event)"> -->
+              
+
+              
+              <div class="form-group">
+                <label for="activites-dropdown">Activity List</label>
+                <select id="activities-dropdown" name="activitylist" class="form-control" formControlName="activitylist">
+                  <option *ngFor="let item of act" [value]=item.name>{{item.name}}</option>
+                </select>
               </div>
-            </div>
+              <div class="form-group">
+                <label for="employee-dropdown">Employee List</label>
+                <select id="employee-dropdown" name="employeelist" class="form-control" formControlName="employeelist">
+                  <option *ngFor="let item of emp" [value]=item.firstname>{{item.firstname}}</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit" (click)="appendData()">Submit</button>
+            </form>
           </div>
-          
-
-            <!-- <div class="form-group">
-                        <label for="employee-dropdown">Employee List</label>
-                        <select id="employee-dropdown" name="employee" class="form-control" formControlName="employee">
-                          <option  *ngFor="let item of data " [value]=item.name>{{item.name}}</option>
-                         
-                        
-                         
-                        </select>
-                      </div> -->
-
-          <!-- Yashraj Soni
-                       <div class="form-group">
-                        <label for="office">Employee List</label>
-                        <input type="text" name="office"   placeholder="Enter Employee List" class="form-control" formControlName="employeelist">
-                      </div>
-                      <div class="form-group">
-                        <label for="salary">Activities</label>
-                        <input type="text" name="activity"   placeholder="Enter Activities " class="form-control" formControlName="activity">
-                      </div>
-make this a dropdown 
-         -->
-      
-    
-  
-  
+        </div>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>File Name</th>
+              <th>Employee List</th>
+              <th>Activities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data">
+              <td>{{item.taskName}}</td>
+              <td>{{item.filename}}</td>
+              <td>{{item.employeelist}}</td>
+              <td>{{item.activity}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
   

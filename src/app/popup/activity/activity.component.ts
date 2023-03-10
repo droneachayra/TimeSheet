@@ -19,8 +19,6 @@ export class ActivityComponent {
   data:any;
   id:any;
 
-
-
   constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private router:Router) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
@@ -70,57 +68,6 @@ export class ActivityComponent {
     throw new Error('Method not implemented.');
 
   }
-  // onDelete(id: number) {
-  //   console.log(id);
-  //   // Call the API to delete the activity data
-  //   this.auth.deleteActivity(id).subscribe(res => {
-  //     if (res) {
-  //       // Remove the deleted activity from the table
-  //       const index = this.data.findIndex((item: { id: number; }) => item.id === id);
-  //       if (index > -1) {
-  //         this.data.splice(index, 1);
-  //       }
-  //     }
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
-  
-  // onDelete(data: any) {
-  //   console.log(data);
-  //   // Call the API to delete the activity data
-  //   this.auth.deleteActivity(data).subscribe(res => {
-  //     if (res) {
-  //       // Remove the deleted activity from the table
-  //       const index = this.data.indexOf(data);
-  //       if (index > -1) {
-  //         this.data.splice(index, 1);
-  //       }
-  //     }
-  //   }, err => {
-  //     console.log(err);
-  //   });
-  // }
-  // onDelete(data: number) {
-  //   console.log("Deleting activity with ID:", data);
-  
-  //   this.auth.deleteActivity(data).subscribe(
-  //     res => {
-  //       console.log("Delete activity response:", res);
-  
-  //       if (res) {
-  //         // Remove the deleted activity from the table
-  //         const index = this.data.findIndex((item: { id: number; })  => item.id === data);
-  //         if (index > -1) {
-  //           this.data.splice(index, 1);
-  //         }
-  //       }
-  //     },
-  //     err => {
-  //       console.error("Error deleting activity:", err);
-  //     }
-  //   );
-  // }
   
   onDelete(data: any) {
     console.log(data);
@@ -132,7 +79,9 @@ export class ActivityComponent {
         if (index > -1) {
           this.data.splice(index, 1);
         }
+        location.reload();
       }
+     
     }, err => {
       console.log(err);
     });
@@ -148,7 +97,8 @@ export class ActivityComponent {
     const data = this.ActivityEdit.value;
     this.auth.editActivity(this.id, data)
     this.ActivityEdit.reset();
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
+    location.reload();
   }
 
 }

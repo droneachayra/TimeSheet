@@ -76,6 +76,7 @@ export class EmployeeComponent {
     this.auth.editEmployee(this.id, data);
     this.EmployeeEdit.reset();
     this.modalService.dismissAll();
+    location.reload();
   }
   onDeleteE(data: any) {
     console.log(data);
@@ -87,7 +88,9 @@ export class EmployeeComponent {
         if (index > -1) {
           this.data.splice(index, 1);
         }
+        location.reload();
       }
+     
     }, err => {
       console.log(err);
     });
