@@ -3,6 +3,7 @@ import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity',
@@ -18,7 +19,7 @@ export class ActivityComponent {
   data:any;
   id:any;
 
-  constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
+  constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private router:Router) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -38,12 +39,15 @@ export class ActivityComponent {
     const data = this.ActivityForm.value;
     this.auth.activity(data).subscribe(res => {
       if(res.success){
+       
       }
     }, err => {
       //alert('ssssddddd');
       alert(err)
     })
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
+    location.reload();
+
   }
 
   readActivity(){

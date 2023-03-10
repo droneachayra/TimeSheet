@@ -8,13 +8,13 @@
   table {
     width: 100%;
     margin: 50px auto;
-    border-collapse: collapse;
-    border: 2px solid #ddd; 
+    /* border-collapse: collapse;
+    border: 2px solid #ddd;  */
   }
   th, td {
     padding: 12px;
     text-align: left;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
   }
   th {
     background-color: rgb(47, 200, 115);

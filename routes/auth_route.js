@@ -92,6 +92,7 @@ router.post('/employee', (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email :req.body.email,
+        password:req.body.password
     }).save()
     .then((_) => {
         res.json({ success: true, message: "Employee added successfully" })
@@ -107,6 +108,7 @@ router.post('/employee', (req, res) => {
 router.post('/project', (req, res) => {
     const pro = new Project({
         id: req.body.id,
+        procode: req.body.procode,
         name: req.body.name,
         status: req.body.status,
         starttime: req.body.starttime,
@@ -116,6 +118,7 @@ router.post('/project', (req, res) => {
         res.json({ success: true, message: "Project added successfully" })
     })
     .catch((err) => {
+      console.log(err);
         if (err.code === 11000) {
             return res.json({ success: false, message: "Project already present" })
         }

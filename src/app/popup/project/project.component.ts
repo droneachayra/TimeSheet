@@ -23,6 +23,7 @@ export class ProjectComponent {
 		config.keyboard = false;
     this.ProjectForm = this.fb.group({
       'id': ['', Validators.required],
+      'procode': ['', Validators.required],
       'name': ['', Validators.required],
       'status': ['', Validators.required],
       'starttime': ['', Validators.required],
@@ -45,6 +46,8 @@ export class ProjectComponent {
     }, err => {
       alert(err)
     })
+    this.modalService.dismissAll();
+    location.reload();
   }
 
   open(content:any) {

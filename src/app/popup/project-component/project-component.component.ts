@@ -14,7 +14,7 @@ import * as XLSX from 'xlsx';
   templateUrl: './project-component.component.html',
   styleUrls: ['./project-component.component.css']
 })
-export class ProjectComponentComponent  {
+export class ProjectComponentComponent implements OnInit  {
   ProjectComponentForm!: FormGroup;
   data:any;
   // data: any[] = [];
@@ -45,14 +45,18 @@ export class ProjectComponentComponent  {
     })
   }
 
-  // ngOnInit(): void {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   // this.dataService.getData().subscribe((res: any[] | undefined) => {
-  //   //   this.data = res;
-  //   // });
-  //   this.readEmployee();
-  //   // this.item = this.dataService.getItemById(id);
-  // }
+  ngOnInit(): void {
+    // const id = this.route.snapshot.paramMap.get('id');
+    // this.dataService.getData().subscribe((res: any[] | undefined) => {
+    //   this.data = res;
+    // });
+    this.auth.getEmployees().subscribe((data) => {
+      this.data = data;
+      
+     })  
+    // this.readEmployee();
+    // this.item = this.dataService.getItemById(id);
+  }
   readEmployee(){
     
     this.auth.getEmployees().subscribe((data) => {

@@ -11,6 +11,8 @@ const routes: Routes = [
   {path:"register", component:RegisterComponent},
   {path:"logout",component:LogoutComponent},
   {path: "project_component/:id", component:ProjectComponentComponent},
+  {path: "project_component/:procode", component:ProjectComponentComponent},
+
   {path:"**",component:DashboardComponent}
   
 ];
