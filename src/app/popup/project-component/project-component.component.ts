@@ -68,7 +68,9 @@ export class ProjectComponentComponent implements OnInit  {
    
     this.auth.projectComponent(data).subscribe(res => {
       if(res.success){
+        location.reload();
       }
+
     }, err => {
       alert(err)
     })
