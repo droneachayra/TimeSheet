@@ -19,6 +19,8 @@ export class ActivityComponent {
   data:any;
   id:any;
 
+
+
   constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private router:Router) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
@@ -68,21 +70,42 @@ export class ActivityComponent {
     throw new Error('Method not implemented.');
 
   }
-  onDelete(data: any) {
-    console.log(data);
-    // Call the API to delete the activity data
-    this.auth.deleteActivity(data).subscribe(res => {
-      if (res) {
-        // Remove the deleted activity from the table
-        const index = this.data.indexOf(data);
-        if (index > -1) {
-          this.data.splice(index, 1);
+  // onDelete(data: any) {
+  //   console.log(data);
+  //   // Call the API to delete the activity data
+  //   this.auth.deleteActivity(data).subscribe(res => {
+  //     if (res) {
+  //       // Remove the deleted activity from the table
+  //       const index = this.data.indexOf(data);
+  //       if (index > -1) {
+  //         this.data.splice(index, 1);
+  //       }
+  //     }
+  //   }, err => {
+  //     console.log(err);
+  //   });
+  // }
+  onDelete(id: number) {
+    console.log("Deleting activity with ID:", id);
+  
+    this.auth.deleteActivity(id).subscribe(
+      res => {
+        console.log("Delete activity response:", res);
+  
+        if (res) {
+          // Remove the deleted activity from the table
+          const index = this.data.findIndex((item: { id: number; })  => item.id === id);
+          if (index > -1) {
+            this.data.splice(index, 1);
+          }
         }
+      },
+      err => {
+        console.error("Error deleting activity:", err);
       }
-    }, err => {
-      console.log(err);
-    });
+    );
   }
+  
   // onDelete(data: any) {
   //   console.log(data);
   //   // Call the API to delete the activity data

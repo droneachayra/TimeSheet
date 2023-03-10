@@ -173,7 +173,7 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
     });
   });
   router.route('/deleteEmployee/:id').delete((req, res, next) => {
-    Activity.findByIdAndRemove({id: req.params.id}).then((data, error) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
       } else {

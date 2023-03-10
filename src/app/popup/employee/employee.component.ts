@@ -51,6 +51,9 @@ export class EmployeeComponent {
     }, err => {
       alert(err)
     })
+    this.modalService.dismissAll();
+
+   location.reload();
   }
 
   open(content:any) {
@@ -89,6 +92,33 @@ export class EmployeeComponent {
       console.log(err);
     });
   }
+
+  public exportToCsv() {
+    const csvRows = [];
+    const headers = ['Id', 'First Name', 'Last Name', 'Email', 'Password'];
+    
+    // Add headers to CSV rows
+    csvRows.push(headers.join(','));
+  
+    // Add data rows to CSV rows
+    this.data.forEach((item: { id: any; firstname: any; lastname: any; email: any; password: any; }) => {
+      const row = [item.id, item.firstname, item.lastname, item.email, item.password];
+      csvRows.push(row.join(','));
+    });
+  
+    // Download the CSV file
+    const csvData = csvRows.join('\n');
+    const blob = new Blob([csvData], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', 'employees.csv');
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+  
   
 
 }
