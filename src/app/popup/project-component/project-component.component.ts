@@ -39,10 +39,10 @@ export class ProjectComponentComponent implements OnInit  {
   ) {
     
     this.ProjectComponentForm = this.fb.group({
-      'taskName': ['', Validators.required],
+      'taskName': ['', Validators.requiredTrue],
       'filename': ['', Validators.required],
-      'activitylist': ['', Validators.required],
-      'employeelist': ['', Validators.required]
+      'activitylist': ['', Validators.requiredTrue],
+      'employeelist': ['', Validators.required],
     })
   }
 
@@ -68,7 +68,7 @@ export class ProjectComponentComponent implements OnInit  {
    
     this.auth.projectComponent(data).subscribe(res => {
       if(res.success){
-        location.reload();
+      location.reload();
       }
 
     }, err => {

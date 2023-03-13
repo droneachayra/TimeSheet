@@ -12,20 +12,13 @@
                 <label for="name">Task Name<span class="text-danger">*</span></label>
                 <input type="text" name="taskName" placeholder="Enter full name" required class="form-control" formControlName="taskName">
               </div>
-              <!-- <div class="d-flex align-items-center">
-                <div class="form-group flex-fill mr-2">
-                  <label for="position">Filename</label>
-                  <input type="text" name="filename" placeholder="Select CSV " class="form-control" readonly formControlName="filename">
-                </div>
-                <button class="btn btn-secondary btn-short" type="button" (click)="exportToExcel()">CSV</button>
-              </div> -->
+              
               <div class="form-group flex-fill mr-2">
                 <label for="position">Filename</label>
                 <input type="text" name="filename" placeholder="Select CSV" class="form-control" readonly formControlName="filename">
                 <input type="file" name="csvFile" class="form-control" (change)="onFileSelected($event)">
               </div>
-              <!-- <input type="file" name="csvFile" class="form-control" (change)="onFileSelected($event)"> -->
-              
+             
 
               
               <div class="form-group">
@@ -51,16 +44,18 @@
             <tr>
               <th>Task Name</th>
               <th>File Name</th>
+              <th>Activitiy List</th>
               <th>Employee List</th>
-              <th>Activities</th>
+             
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of data">
               <td>{{item.taskName}}</td>
               <td>{{item.filename}}</td>
+              <td>{{item.activitylist}}</td>
               <td>{{item.employeelist}}</td>
-              <td>{{item.activity}}</td>
+             
             </tr>
           </tbody>
         </table>
@@ -68,3 +63,11 @@
     </div>
   </div>
   
+
+  <!-- <div class="d-flex align-items-center">
+                <div class="form-group flex-fill mr-2">
+                  <label for="position">Filename</label>
+                  <input type="text" name="filename" placeholder="Select CSV " class="form-control" readonly formControlName="filename">
+                </div>
+                <button class="btn btn-secondary btn-short" type="button" (click)="exportToExcel()">CSV</button>
+              </div> -->

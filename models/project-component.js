@@ -7,14 +7,18 @@ type: String,
 required: true
 },
 filename: {
-type: String
+type: String,
+
+},
+
+activitylist: {
+type: String,
+required: true
 },
 employeelist: {
-type: String
-},
-activitylist: {
-type: String
-}
+    type: String,
+    required: true
+    }
 }, {
 collection: 'ListData'
 });

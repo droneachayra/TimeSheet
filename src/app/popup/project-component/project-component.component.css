@@ -1,15 +1,7 @@
 .container {
     margin-top: 50px;
   }
-  .btn-short {
-    width: 70px;
-    /* height: fit-content; */
-  }
-  table {
-    width: 100%;
-    margin: 50px auto;
-   
-  }
+  
   th, td {
     padding: 12px;
     text-align: left;

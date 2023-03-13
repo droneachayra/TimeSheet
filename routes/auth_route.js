@@ -252,9 +252,9 @@ router.route('/editactivity/:id').put((req, res) => {
     
     const pro = new projectComponent({
         taskName: req.body.taskName,
-        filename: req.body.filename,
-        employeelist: req.body.employeelist,
+        filename: req.body.filename, 
         activitylist:req.body.activitylist,
+        employeelist: req.body.employeelist,
       
 
     }).save()
