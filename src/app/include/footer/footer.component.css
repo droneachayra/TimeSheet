@@ -1,4 +1,4 @@
-.footer{
+/* .footer{
   margin: 0;
   background-color: black;
   color:rgb(255, 255, 255);
@@ -120,4 +120,41 @@
   .fa-rss {
   
     color: white;
+  } */
+  .footer {
+    background-color: #0D6EFD;
+    color: #fff;
+    padding: 50px 0;
+  }
+  .footer h4 {
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .footer p {
+    margin-bottom: 0;
+  }
+  .social-icons {
+    list-style: none;
+    padding: 0;
+  }
+  .social-icons li {
+    display: inline-block;
+    margin-right: 10px;
+  }
+  .social-icons li:last-child {
+    margin-right: 0;
+  }
+  .social-icons a {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+  }
+  .social-icons a:hover {
+    background-color: rgba(255, 255, 255, 0.5);
   }
