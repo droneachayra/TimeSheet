@@ -14,8 +14,8 @@
               </div>
               
               <div class="form-group flex-fill mr-2">
-                <label for="position">Filename</label>
-                <input type="text" name="filename" placeholder="Select CSV" class="form-control" readonly formControlName="filename">            
+                <label for="filename">Filename</label>
+                <input type="text" name="filename" value={{nameofile}} placeholder={{nameofile}} class="form-control" formControlName="filename">            
               </div>
 
               <div class="form-group flex-fill mr-2">
@@ -56,8 +56,7 @@
               <td>{{item.taskName}}</td>
               <td>{{item.filename}}</td>
               <td>{{item.activitylist}}</td>
-              <td>{{item.employeelist}}</td>
-             
+              <td>{{item.employeelist}}</td>             
             </tr>
           </tbody>
         </table>

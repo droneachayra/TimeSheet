@@ -25,6 +25,7 @@ export class ProjectComponentComponent implements OnInit  {
   records!:any[];
   act:any;
   employeeService: any;
+  nameofile: any;
  
   input: any;
   ProjectForm: any;
@@ -40,9 +41,10 @@ export class ProjectComponentComponent implements OnInit  {
     
     this.ProjectComponentForm = this.fb.group({
       'taskName': ['', Validators.requiredTrue],
-      'filename': ['', Validators.required],
+      'filename': ['aa', Validators.required],
       'activitylist': ['', Validators.requiredTrue],
       'employeelist': ['', Validators.required],
+      'csvFile':  [null],
     })
   }
 
@@ -53,8 +55,7 @@ export class ProjectComponentComponent implements OnInit  {
       this.emp = data;
     })  
     this.auth.getProject().subscribe((data) => {
-      this.proj = data;
-      console.log(data);      
+      this.proj = data;      
     }) 
     this.auth.getActivity().subscribe((data) => {
       this.act = data;
@@ -65,7 +66,11 @@ export class ProjectComponentComponent implements OnInit  {
   }
   appendData(){
     const data = this.ProjectComponentForm.value;
-   
+    this.ProjectComponentForm.patchValue({
+      filename:this.nameofile,
+    });
+    this.ProjectComponentForm.get('filename')!.updateValueAndValidity();
+    console.log(data)
     this.auth.projectComponent(data).subscribe(res => {
       if(res.success){
       location.reload();
@@ -74,17 +79,12 @@ export class ProjectComponentComponent implements OnInit  {
     }, err => {
       alert(err)
     })
-    
- 
   }
+
   getProjectComponent(){
-    
     this.auth.getProjectComponent().subscribe((data) => {
      this.data = data;
-     console.log(data);
-    })  
-    console.log(this.data);
-
+    }) 
   }  
 
   exportToExcel(): void {
@@ -117,12 +117,11 @@ export class ProjectComponentComponent implements OnInit  {
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsText(file);
-    reader.onload = () => {
-      const csvData = reader.result as string;
-      // Process the CSV data and store it in your component
-    };
+    this.nameofile = file.name;
+    this.ProjectComponentForm.patchValue({
+      csvFile:file,
+    });
+    this.ProjectComponentForm.get('csvFile')!.updateValueAndValidity();
   }
 
 }

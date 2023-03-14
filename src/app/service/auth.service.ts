@@ -130,6 +130,7 @@ export class AuthService {
     return this.http.post(url, data, { headers });
   }
   projectComponent(data:any):Observable<any>{
+    console.log(data)
     const url = `${this.apiUrl}ProjectComponent`;
     const headers = this.getAuthHeaders();
     return this.http.post(url, data, { headers });
