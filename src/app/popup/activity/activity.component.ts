@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/service/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-activity',
@@ -17,7 +19,7 @@ export class ActivityComponent {
   data:any;
   id:any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService) {
+  constructor(private http:HttpClient ,config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private router:Router) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
@@ -37,12 +39,15 @@ export class ActivityComponent {
     const data = this.ActivityForm.value;
     this.auth.activity(data).subscribe(res => {
       if(res.success){
+       
       }
     }, err => {
       //alert('ssssddddd');
       alert(err)
     })
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
+    location.reload();
+
   }
 
   readActivity(){
@@ -54,18 +59,34 @@ export class ActivityComponent {
   open(content:any) {
 		this.modalService.open(content);
 	}
-  // editActivity(item: any) {
-  //   // Open the modal with the form pre-populated with the activity data
-  //   this.modalService.open(this.content);
-  //   this.ActivityForm.setValue(item);
-  // }
+  editActivity(item: any) {
+    // Open the modal with the form pre-populated with the activity data
+    this.modalService.open(this.content);
+    this.ActivityForm.setValue(item);
+  }
   content(content: any) {
     throw new Error('Method not implemented.');
 
   }
-  onDelete(id:any){
   
+  onDelete(data: any) {
+    console.log(data);
+    // Call the API to delete the activity data
+    this.auth.deleteActivity(data).subscribe(res => {
+      if (res) {
+        // Remove the deleted activity from the table
+        const index = this.data.indexOf(data);
+        if (index > -1) {
+          this.data.splice(index, 1);
+        }
+        location.reload();
+      }
+     
+    }, err => {
+      console.log(err);
+    });
   }
+  
 
   openEdit(id:any, content:any){
     this.id = id;
@@ -76,7 +97,8 @@ export class ActivityComponent {
     const data = this.ActivityEdit.value;
     this.auth.editActivity(this.id, data)
     this.ActivityEdit.reset();
-    this.modalService.dismissAll()
+    this.modalService.dismissAll();
+    location.reload();
   }
 
 }

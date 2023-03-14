@@ -7,7 +7,7 @@
 		<form [formGroup]="ActivityForm">
             <div class="mb-3">
                 <label for="id-input" class="form-label">ID:</label>
-                <input type="text" class="form-control" id="id-input" formControlName="id">
+                <input type="number" class="form-control" id="id-input" formControlName="id">
             </div>
             <div class="mb-3">
                 <label for="name-input" class="form-label">Name:</label>
@@ -31,10 +31,7 @@
 	</div>
 	<div class="modal-body">
 		<form [formGroup]="ActivityEdit">
-            <!-- <div class="mb-3">
-                <label for="id-input" class="form-label">ID:</label>
-                <input type="text" value="ahahah" class="form-control" id="id-input" formControlName="id">
-            </div> -->
+      
             <div class="mb-3">
                 <label for="name-input" class="form-label">Name:</label>
                 <input type="text" class="form-control" id="name-input" formControlName="name">
@@ -50,7 +47,7 @@
 	</div>
 </ng-template>
 
-<div class="container">
+<div id="hey" class="container">
     <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Activity</button>
     <div class="row justify-content-center mt-5">
         <div class="col-10">
@@ -75,24 +72,8 @@
                       </tr>
                 </tbody>
             </table>
-            <!-- <div class="edit-form" *ngIf="showEditForm">
-                <form #editForm="ngForm">
-                  <div class="form-group">
-                    <label for="editName">Name</label>
-                    <input type="text" class="form-control" id="editName" name="name" [(ngModel)]="editItem.name" required>
-                  </div>
-                  <div class="form-group">
-                    <label for="editDescription">Description</label>
-                    <textarea class="form-control" id="editDescription" name="description" [(ngModel)]="editItem.description" required></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="editPrice">Price</label>
-                    <input type="number" class="form-control" id="editPrice" name="price" [(ngModel)]="editItem.price" required>
-                  </div>
-                </form>
-                <button class="btn btn-primary" (click)="onSave()">Save</button>
-              </div>
-            -->
+           
+            
         </div>
     </div>
 </div>

@@ -1,0 +1,13 @@
+.container {
+    margin-top: 50px;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    
+  }
+  th {
+    background-color: rgb(47, 200, 115);
+    color: rgb(0, 0, 0);
+  }

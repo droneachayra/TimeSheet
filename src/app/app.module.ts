@@ -20,6 +20,9 @@ import { EmployeeComponent } from './popup/employee/employee.component';
 import { ProjectComponent } from './popup/project/project.component';
 import { ActivityComponent } from './popup/activity/activity.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ComponentComponent } from './component/component.component';
+import { ProjectComponentComponent } from './popup/project-component/project-component.component';
+import { LogincheckService } from './service/logincheck.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmployeeComponent,
     ProjectComponent,
     ActivityComponent,
+    ComponentComponent,
+    ProjectComponentComponent,
    
   ],
   imports: [
@@ -49,7 +54,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatFormFieldModule,
     NgbModule
   ],
-  providers: [],
+  providers: [HeaderComponent, LogincheckService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

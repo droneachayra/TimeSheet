@@ -7,7 +7,11 @@
 		<form [formGroup]="ProjectForm">
             <div class="mb-3">
                 <label for="id-input" class="form-label">ID:</label>
-                <input type="text" class="form-control" id="id-input" formControlName="id">
+                <input type="number" class="form-control" id="id-input" formControlName="id">
+            </div>
+            <div class="mb-3">
+                <label for="procode-input" class="form-label">Procode</label>
+                <input type="number" class="form-control" id="procode-input" formControlName="procode">
             </div>
             <div class="mb-3">
                 <label for="name-input" class="form-label">Name:</label>
@@ -81,6 +85,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
+                        <th>Procode</th>
                         <th>Name</th>
                         <th>Status</th>
 						<th>Start Time</th>
@@ -90,15 +95,17 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of data">
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.name }}</td>
+                        <td scope="row">{{ item.id }}</td>
+                        <td><a [routerLink]="['/project_component',item.procode]">{{ item.procode }}</a></td>
+                        <td>{{ item.name }}</td>   
 						<td>{{ item.status }}</td>
                         <td>{{ item.starttime }}</td>
                         <td>{{ item.endtime }}</td>
                         <td class="actions">
-                            <button class="btn btn-sm btn-primary btn-edit">Edit</button>
-                            <button class="btn btn-sm btn-danger btn-action">Delete</button>
-                          </td>
+                            <button class="btn btn-sm btn-primary btn-edit" (click)="openEdit(item.id ,edit)">Edit</button>
+                            <button class="btn btn-sm btn-danger btn-action" (click)="onDelete(item.id)">Delete</button>
+                            
+                        </td>
                     </tr>
                 </tbody>
             </table>

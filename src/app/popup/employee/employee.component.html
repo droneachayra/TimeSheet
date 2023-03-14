@@ -6,16 +6,24 @@
 	<div class="modal-body">
 		<form [formGroup]="EmployeeForm" class ="text-left" action="">
             <div class="mb-3">
-                <label for="id-input" class="form-label">First Name:</label>
-                <input type="text" class="form-control" id="id-input" formControlName="firstname">
+                <label for="id-input" class="form-label">ID:</label>
+                <input type="number" class="form-control" id="id-input" formControlName="id">
             </div>
             <div class="mb-3">
-                <label for="name-input" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" id="name-input" formControlName="lastname">
+                <label for="firstname-input" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="firstname-input" formControlName="firstname">
             </div>
             <div class="mb-3">
-                <label for="code-input" class="form-label">Email:</label>
-                <input type="text" class="form-control" id="code-input" formControlName="email">
+                <label for="lastname-input" class="form-label">Last Name:</label>
+                <input type="text" class="form-control" id="lastname-input" formControlName="lastname">
+            </div>
+            <div class="mb-3">
+                <label for="email-input" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="email-input" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="password-input" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password-input" formControlName="password">
             </div>
         </form>
 	</div>
@@ -31,17 +39,22 @@
 	</div>
 	<div class="modal-body">
 		<form [formGroup]="EmployeeEdit">
+           
             <div class="mb-3">
-                <label for="id-input" class="form-label">First Name:</label>
-                <input type="text" class="form-control" id="id-input" formControlName="firstname">
+                <label for="name-input" class="form-label">First Name:</label>
+                <input type="text" class="form-control" id="name-input" formControlName="firstname">
             </div>
             <div class="mb-3">
                 <label for="name-input" class="form-label">Last Name:</label>
                 <input type="text" class="form-control" id="name-input" formControlName="lastname">
             </div>
             <div class="mb-3">
-                <label for="code-input" class="form-label">Email:</label>
-                <input type="text" class="form-control" id="code-input" formControlName="email">
+                <label for="email-input" class="form-label">Email:</label>
+                <input type="text" class="form-control" id="email-input" formControlName="email">
+            </div>
+            <div class="mb-3">
+                <label for="passowrd-input" class="form-label">Password</label>
+                <input type="text" class="form-control" id="password-input" formControlName="email">
             </div>
         </form>
 	</div>
@@ -50,27 +63,38 @@
 	</div>
 </ng-template>
 
+
 <div class="container">
-    <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Employee</button>
+   
+    <div class="btn-group" style="position: absolute; top: 100px; right: 10px;">
+        <button class="btn btn-lg btn-outline-primary" (click)="exportToCsv()">CSV</button>
+        <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add New Employee</button>
+    </div>
+
     <div class="row justify-content-center mt-5">
         <div class="col-10">
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>First Name</th>
                         <th>Last Name</th>
 						<th>Email</th>
+                        <th>Password</th>
                         <th>Functionality</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of data">
+                        <td scope="row">{{ item.id }}</td>
                         <td>{{ item.firstname }}</td>
                         <td>{{ item.lastname }}</td>
 						<td>{{ item.email }}</td>
+                        <td>{{ item.password }}</td>
+
                         <td class="actions">
-                            <button class="btn btn-sm btn-primary btn-edit">Edit</button>
-                            <button class="btn btn-sm btn-danger btn-action">Delete</button>
+                            <button class="btn btn-sm btn-primary btn-edit" (click)="openEdit(item.id ,edit)">Edit</button>
+                            <button class="btn btn-sm btn-danger btn-action" (click)="onDeleteE(item.id)">Delete</button>
                           </td>
                     </tr>
                 </tbody>
@@ -78,3 +102,12 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+ <!-- <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">CSV</button>
+    <button class="btn btn-lg btn-outline-primary" style="position: absolute; top: 100px; right: 10px;" (click)="open(content)">Add New Employee</button> -->

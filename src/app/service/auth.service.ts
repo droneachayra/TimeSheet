@@ -69,6 +69,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  getprojectComponent() {
+    throw new Error('Method not implemented.');
+  }
   updateActivity(data: any) {
     throw new Error('Method not implemented.');
   }
@@ -99,6 +102,15 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     return this.http.get(url, { headers });
   }
+
+  isLoggedIn():boolean {
+    if(localStorage.getItem('token') == null){
+      return false;
+    }
+    else{
+      return true;
+    }
+   }
     
   activity(data:any):Observable<any>{
     const url = `${this.apiUrl}activity`;
@@ -117,6 +129,11 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     return this.http.post(url, data, { headers });
   }
+  projectComponent(data:any):Observable<any>{
+    const url = `${this.apiUrl}ProjectComponent`;
+    const headers = this.getAuthHeaders();
+    return this.http.post(url, data, { headers });
+  }
 
   getActivity() {
     const url = `${this.apiUrl}getActivity`;
@@ -132,10 +149,21 @@ export class AuthService {
     const url = `${this.apiUrl}getProject`;
     return this.http.get(url);
   } 
-
+  getProjectComponent() {
+    const url = `${this.apiUrl}getProjectComponent`;
+    return this.http.get(url);
+  } 
   
   deleteActivity(item: any) {
-    const url = `${this.apiUrl}delete/${item.id}`;
+    const url = `${this.apiUrl}deleteActivity/${item}`;
+    return this.http.delete(url);
+  }
+  deleteEmployee(item: any) {
+    const url = `${this.apiUrl}deleteEmployee/${item}`;
+    return this.http.delete(url);
+  }
+  deleteProject(item: any) {
+    const url = `${this.apiUrl}deleteProject/${item}`;
     return this.http.delete(url);
   }
 
@@ -167,6 +195,6 @@ export class AuthService {
     });
   }
   
-  }
+}
   
 

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const projectComponent=require('../models/project-component');
 const User = require('../models/user');
 const Activity = require('../models/activity');
 const Employee = require('../models/employee');
@@ -8,10 +8,11 @@ const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 const checkAuth =require('../middleware/check_auth');
 
+
 router.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
-            return res.json({ success: false, message: "Hash Error !" })
+            return res.json({ success: false, message: "Hash Error" })
         } else {
             //res.json("register work")
             const user = new User({
@@ -24,7 +25,7 @@ router.post('/register', (req, res) => {
             })
             .catch((err) => {
                 if (err.code === 11000) {
-                    return res.json({ uccses: false, message: "Email already exists! " })
+                    return res.json({ success: false, message: "Email already exists" })
                 }
                 res.json({ success: false, message: "Authentication failed" })
             })
@@ -37,7 +38,7 @@ router.post('/login', (req, res) => {
    // res.json("login work")
    User.find({email:req.body.email}).exec().then((result)=>{
     if(result.length<1){
-        return res.json({success:false,message:"user not fount"})
+        return res.json({success:false,message:"User not found"})
     }
     const user=result[0];
     bcrypt.compare(req.body.password,user.password,(err,ret)=>{
@@ -46,13 +47,13 @@ router.post('/login', (req, res) => {
                 userId:user._id
             } 
            const token = jwt.sign(payload,"webBatch")
-            return res.json({success:true,message:"Login Succfull...!!",token:token})
+            return res.json({success:true,message:"Login Successful",token:token})
         }else{
-            return res.json({success:false,message:"password does not match!!"})
+            return res.json({success:false,message:"Password does not match"})
         }
     })
    }).catch(err=>{
-    res.json({success:false,message:"Authentication failed.."})
+    res.json({success:false,message:"Authentication failed"})
    })
 })
 
@@ -87,9 +88,11 @@ router.post('/activity', (req, res) => {
 
 router.post('/employee', (req, res) => {
     const emp = new Employee({
+        id: req.body.id,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email :req.body.email,
+        password:req.body.password
     }).save()
     .then((_) => {
         res.json({ success: true, message: "Employee added successfully" })
@@ -105,6 +108,7 @@ router.post('/employee', (req, res) => {
 router.post('/project', (req, res) => {
     const pro = new Project({
         id: req.body.id,
+        procode: req.body.procode,
         name: req.body.name,
         status: req.body.status,
         starttime: req.body.starttime,
@@ -114,6 +118,7 @@ router.post('/project', (req, res) => {
         res.json({ success: true, message: "Project added successfully" })
     })
     .catch((err) => {
+      console.log(err);
         if (err.code === 11000) {
             return res.json({ success: false, message: "Project already present" })
         }
@@ -139,20 +144,44 @@ router.route('/getProject').get((req, res) => {
     })
 })
 
-
 router.route('/deleteActivity/:id').delete((req, res, next) => {
-    Activity.findOneAndRemove({id: req.params.id}).then((error, data) => {
+    Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
         return next(error);
-      }else {
+      } else {
         res.status(200).json({
-          msg: data
-        })
+          msg: 'Activity deleted successfully',
+          data: data
+        });
       }
     });
-    
-});
- 
+  });
+  router.route('/deleteEmployee/:id').delete((req, res, next) => {
+    Employee.findOneAndDelete({id: req.params.id}).then((data, error) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.status(200).json({
+          msg: 'Employee deleted successfully',
+          data: data
+        });
+      }
+    });
+  });
+
+  router.route('/deleteProject/:id').delete((req, res, next) => {
+    Project.findOneAndRemove({id: req.params.id}).then((data, error) => {
+      if (error) {
+        return next(error);
+      } else {
+        res.status(200).json({
+          msg: 'Project deleted successfully',
+          data: data
+        });
+      }
+    });
+  });
+ s
 router.route('/editactivity/:id').put((req, res) => {
     Activity.findOneAndUpdate(
       { id: req.params.id },
@@ -178,7 +207,7 @@ router.route('/editactivity/:id').put((req, res) => {
   });
 
   router.route('/editproject/:id').put((req, res) => {
-    console.log("ahahahah")
+   
     Project.findOneAndUpdate(
       { id: req.params.id },
       { $set: { name: req.body.name, status: req.body.status, starttime:req.body.starttime, endtime:req.body.endtime } },
@@ -189,6 +218,47 @@ router.route('/editactivity/:id').put((req, res) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
+  router.post('/ProjectComponent', (req, res) => {
+    
+    const pro = new projectComponent({
+        taskName: req.body.taskName,
+        filename: req.body.filename, 
+        activitylist:req.body.activitylist,
+        employeelist: req.body.employeelist,
+      
+
+    }).save()
+    .then((_) => {
+        res.json({ success: true, message: "Project added successfully" })
+    })
+    .catch((err) => {
+      console.log(err);
+        if (err.code === 11000) {
+            return res.json({ success: false, message: "Project already present" })
+        }
+        res.json({ success: false, message: err })
+    })
+});
+
+router.route('/getProjectComponent').get((req, res) => {
+ 
+  projectComponent.find().then((result) => {
+      res.json(result);
+  })
+})
+
+// router.get('/getProjectComponent/:procode', (req, res) => {
+//   const procode = req.params.procode;
+//   console.log(procode);
+//   Project.findOne({ procode: procode }).then((err, project) => {
+//     if (err) {
+//       res.status(500).send(err);
+//     } else {
+//       res.json(project); 
+//     }
+//   });
+// });
+
 
 module.exports = router
 
@@ -197,15 +267,6 @@ module.exports = router
 
 
 
-// router.route('/delete/:id').delete((req, res, next) => {
-//     Activity.findByIdAndRemove(req.params.id).then((error, data) => {
-//       if (error) {
-//         return next(error);
-//       }else {
-//         res.status(200).json({
-//           msg: data
-//         })
-//       }
-//     })
-    
-// })
+
+
+
