@@ -21,10 +21,11 @@ export class ProjectComponentComponent implements OnInit  {
   data:any;
   emp:any;
   proj:any;
- 
+  id:any;
   records!:any[];
   act:any;
   employeeService: any;
+  nameofile: any;
  
   input: any;
   ProjectForm: any;
@@ -40,9 +41,10 @@ export class ProjectComponentComponent implements OnInit  {
     
     this.ProjectComponentForm = this.fb.group({
       'taskName': ['', Validators.requiredTrue],
-      'filename': ['', Validators.required],
+      'filename': ['aa', Validators.required],
       'activitylist': ['', Validators.requiredTrue],
       'employeelist': ['', Validators.required],
+      'csvFile':  [null],
     })
   }
 
@@ -51,21 +53,24 @@ export class ProjectComponentComponent implements OnInit  {
 
     this.auth.getEmployees().subscribe((data) => {
       this.emp = data;
-     })  
-     this.auth.getProject().subscribe((data) => {
-      this.proj = data;
-      console.log(data);
-      
-     }) 
-     this.auth.getActivity().subscribe((data) => {
+    })  
+    this.auth.getProject().subscribe((data) => {
+      this.proj = data;      
+    }) 
+    this.auth.getActivity().subscribe((data) => {
       this.act = data;
-     }) 
-     
-   
+    }) 
+
+    this.id = this.route.snapshot.params['id']
+
   }
   appendData(){
     const data = this.ProjectComponentForm.value;
-   
+    this.ProjectComponentForm.patchValue({
+      filename:this.nameofile,
+    });
+    this.ProjectComponentForm.get('filename')!.updateValueAndValidity();
+    console.log(data)
     this.auth.projectComponent(data).subscribe(res => {
       if(res.success){
       location.reload();
@@ -74,20 +79,12 @@ export class ProjectComponentComponent implements OnInit  {
     }, err => {
       alert(err)
     })
-    
- 
   }
+
   getProjectComponent(){
-    
     this.auth.getProjectComponent().subscribe((data) => {
      this.data = data;
-     console.log(data);
-     
-     
-     
-    })  
-    console.log(this.data);
-
+    }) 
   }  
 
   exportToExcel(): void {
@@ -110,18 +107,22 @@ export class ProjectComponentComponent implements OnInit  {
     }, 100);
   }
   
-  onFileSelected(event: Event) {
-    const fileInput = event.target as HTMLInputElement;
-    if (fileInput && fileInput.files && fileInput.files.length > 0) {
-      const file = fileInput.files[0];
-      // Do something with the file
-    }
-  }
-  
-  
-  
-  
+  // onFileSelected(event: Event) {
+  //   const fileInput = event.target as HTMLInputElement;
+  //   if (fileInput && fileInput.files && fileInput.files.length > 0) {
+  //     const file = fileInput.files[0];
+  //     // Do something with the file
+  //   }
+  // }
 
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    this.nameofile = file.name;
+    this.ProjectComponentForm.patchValue({
+      csvFile:file,
+    });
+    this.ProjectComponentForm.get('csvFile')!.updateValueAndValidity();
+  }
 
 }
 

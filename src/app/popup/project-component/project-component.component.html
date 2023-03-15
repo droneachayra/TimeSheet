@@ -6,7 +6,7 @@
           <!-- <h2> Project {{ ProjectComponentForm.get('projectcode').value }}</h2> -->
         
           <div class="card-body">
-            <h2 class="card-title">Project {{proj.procode}} </h2>
+            <h2 class="card-title">Project {{id}} </h2>
             <form [formGroup]="ProjectComponentForm">
               <div class="form-group">
                 <label for="name">Task Name<span class="text-danger">*</span></label>
@@ -14,12 +14,14 @@
               </div>
               
               <div class="form-group flex-fill mr-2">
-                <label for="position">Filename</label>
-                <input type="text" name="filename" placeholder="Select CSV" class="form-control" readonly formControlName="filename">
-                <input type="file" name="csvFile" class="form-control" (change)="onFileSelected($event)">
+                <label for="filename">Filename</label>
+                <input type="text" name="filename" value={{nameofile}} placeholder={{nameofile}} class="form-control" formControlName="filename">            
               </div>
-             
 
+              <div class="form-group flex-fill mr-2">
+                <label for="csvFile">Select CSV File</label>
+                <input type="file" id="csvFile" name="csvFile" class="form-control" (change)="onFileSelected($event)">
+              </div>
               
               <div class="form-group">
                 <label for="activites-dropdown">Activity List</label>
@@ -54,8 +56,7 @@
               <td>{{item.taskName}}</td>
               <td>{{item.filename}}</td>
               <td>{{item.activitylist}}</td>
-              <td>{{item.employeelist}}</td>
-             
+              <td>{{item.employeelist}}</td>             
             </tr>
           </tbody>
         </table>

@@ -7,12 +7,28 @@ const Project = require('../models/project');
 const bcrypt = require('bcrypt');
 const jwt =require('jsonwebtoken');
 const checkAuth =require('../middleware/check_auth');
-
+// const multer = require("multer");
+// const {GridFsStorage} = require("multer-gridfs-storage");
+// const mongouri = 'mongodb+srv://time1:time1@cluster0.8qkzhs0.mongodb.net/db?retryWrites=true&w=majority';
+// const storage = new GridFsStorage({
+//   url: mongouri,
+//   file: (req, file) => {
+//     return new Promise((resolve, reject) => {
+//       const filename = file.originalname;
+//       const fileInfo = {
+//         filename: filename,
+//         bucketName: "newBucket"
+//       };
+//       resolve(fileInfo);
+//     });
+//   }
+// });
+// const upload = multer({storage});
 
 router.post('/register', (req, res) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
         if (err) {
-            return res.json({ success: false, message: "Hash Error !" })
+            return res.json({ success: false, message: "Hash Error" })
         } else {
             //res.json("register work")
             const user = new User({
@@ -25,7 +41,7 @@ router.post('/register', (req, res) => {
             })
             .catch((err) => {
                 if (err.code === 11000) {
-                    return res.json({ uccses: false, message: "Email already exists! " })
+                    return res.json({ success: false, message: "Email already exists" })
                 }
                 res.json({ success: false, message: "Authentication failed" })
             })
@@ -38,7 +54,7 @@ router.post('/login', (req, res) => {
    // res.json("login work")
    User.find({email:req.body.email}).exec().then((result)=>{
     if(result.length<1){
-        return res.json({success:false,message:"user not fount"})
+        return res.json({success:false,message:"User not found"})
     }
     const user=result[0];
     bcrypt.compare(req.body.password,user.password,(err,ret)=>{
@@ -47,13 +63,13 @@ router.post('/login', (req, res) => {
                 userId:user._id
             } 
            const token = jwt.sign(payload,"webBatch")
-            return res.json({success:true,message:"Login Succfull...!!",token:token})
+            return res.json({success:true,message:"Login Successful",token:token})
         }else{
-            return res.json({success:false,message:"password does not match!!"})
+            return res.json({success:false,message:"Password does not match"})
         }
     })
    }).catch(err=>{
-    res.json({success:false,message:"Authentication failed.."})
+    res.json({success:false,message:"Authentication failed"})
    })
 })
 
@@ -144,22 +160,6 @@ router.route('/getProject').get((req, res) => {
     })
 })
 
-
-
-
-  
-// router.route('/deleteActivity/:id').delete((req, res, next) => {
-//     Activity.findOneAndRemove(req.params.id).then((error, data) => {
-//       if (error) {
-//         return next(error);
-//       }else {
-//         res.status(200).json({
-//           msg: data
-//         })
-//       }
-//     })
-    
-// })
 router.route('/deleteActivity/:id').delete((req, res, next) => {
     Activity.findOneAndRemove({id: req.params.id}).then((data, error) => {
       if (error) {
@@ -184,18 +184,6 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
       }
     });
   });
-  // router.route('/deleteEmployee/:id').delete((req, res, next) => {
-  //   Activity.findOneAndRemove{id: req.params.id}).then((data, error) => {
-  //     if (error) {
-  //       return next(error);
-  //     } else {
-  //       res.status(200).json({
-  //         msg: 'Employee deleted successfully',
-  //         data: data
-  //       });
-  //     }
-  //   });
-  
 
   router.route('/deleteProject/:id').delete((req, res, next) => {
     Project.findOneAndRemove({id: req.params.id}).then((data, error) => {
@@ -210,8 +198,6 @@ router.route('/deleteActivity/:id').delete((req, res, next) => {
     });
   });
 
-
- 
 router.route('/editactivity/:id').put((req, res) => {
     Activity.findOneAndUpdate(
       { id: req.params.id },
@@ -248,6 +234,7 @@ router.route('/editactivity/:id').put((req, res) => {
       res.json({ success: false, message: "Failed to update", error: err });
     });
   });
+  
   router.post('/ProjectComponent', (req, res) => {
     
     const pro = new projectComponent({
@@ -255,6 +242,7 @@ router.route('/editactivity/:id').put((req, res) => {
         filename: req.body.filename, 
         activitylist:req.body.activitylist,
         employeelist: req.body.employeelist,
+        csvFile: req.body.csvFile,
       
 
     }).save()
@@ -277,6 +265,39 @@ router.route('/getProjectComponent').get((req, res) => {
   })
 })
 
+// router.get('/getProjectComponent/:procode', (req, res) => {
+//   const procode = req.params.procode;
+//   console.log(procode);
+//   Project.findOne({ procode: procode }).then((err, project) => {
+//     if (err) {
+//       res.status(500).send(err);
+//     } else {
+//       res.json(project); 
+//     }
+//   });
+// });
+
+// router.post("/upload", upload.single("file"), (req, res) => {
+//   res.status(200)
+//     .send("File uploaded successfully");
+// });
+
+// router.get("/getfile/:filename", (req, res) => {
+//   const file = bucket
+//     .find({
+//       filename: req.params.filename
+//     })
+//     .toArray((err, files) => {
+//       if (!files || files.length === 0) {
+//         return res.status(404)
+//           .json({
+//             err: "no files exist"
+//           });
+//       }
+//       bucket.openDownloadStreamByName(req.params.filename)
+//         .pipe(res);
+//     });
+// });
 
 module.exports = router
 

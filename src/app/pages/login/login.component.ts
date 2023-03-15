@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
+import { HeaderComponent } from 'src/app/include/header/header.component';
+import { LogincheckService } from 'src/app/service/logincheck.service';
 //import { HeadNav } from 'src/app/include/header';
 
 @Component({
@@ -11,7 +13,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  constructor(private fb: FormBuilder, private auth: AuthService ,private router:Router) {
+  constructor(private fb: FormBuilder, private auth: AuthService ,private router:Router, private head:HeaderComponent, private logincheck:LogincheckService) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
@@ -20,19 +22,22 @@ export class LoginComponent {
   ngOnInit(): void {
 
   }
+
   login() {
     const data = this.loginForm.value
-     this.auth.signin(data).subscribe((res) => {
-      if(res.succses){
-       localStorage.setItem('token',res.token)
+    this.auth.signin(data).subscribe((res) => {
+      if(res.success){
+      localStorage.setItem('token',res.token)
     //     this.router.navigate(['/profile']);
-       this.router.navigate(['/dashboard']);
-       }else{
+    
+      this.logincheck.isUserLoggedIn.next(true)
+      this.router.navigate(['/dashboard']);
+      }else{
         alert(res.message)
       }
     
    }, res => {
-      alert("login faied")
+      alert("Login failed")
     })
   }
 }

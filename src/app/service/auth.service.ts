@@ -102,6 +102,15 @@ export class AuthService {
     const headers = this.getAuthHeaders();
     return this.http.get(url, { headers });
   }
+
+  isLoggedIn():boolean {
+    if(localStorage.getItem('token') == null){
+      return false;
+    }
+    else{
+      return true;
+    }
+   }
     
   activity(data:any):Observable<any>{
     const url = `${this.apiUrl}activity`;
@@ -121,11 +130,11 @@ export class AuthService {
     return this.http.post(url, data, { headers });
   }
   projectComponent(data:any):Observable<any>{
+    console.log(data)
     const url = `${this.apiUrl}ProjectComponent`;
     const headers = this.getAuthHeaders();
     return this.http.post(url, data, { headers });
   }
-
 
   getActivity() {
     const url = `${this.apiUrl}getActivity`;
@@ -186,8 +195,7 @@ export class AuthService {
       console.log(err);
     });
   }
-
   
-  }
+}
   
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-
+import { Router } from '@angular/router'; 
 import { AuthService } from 'src/app/service/auth.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,7 +18,7 @@ export class ProjectComponent {
   id:any;
   cd: any;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private http:HttpClient) {
+  constructor(private router: Router, config: NgbModalConfig, private modalService: NgbModal, private fb: FormBuilder, private auth: AuthService,private http:HttpClient) {
 		// customize default values of modals used by this component tree
 		config.backdrop = 'static';
 		config.keyboard = false;
